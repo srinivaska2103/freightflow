@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freight Flow| Freight Brokerage Platform</title>
+            <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-white' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2'/%3E%3C/svg%3E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind dark mode configuration
+        tailwind.config = { darkMode: 'class' };
+
+        // Initialization to prevent flash of wrong theme
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedDir = localStorage.getItem('dir') || 'ltr';
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            document.documentElement.dir = savedDir;
+        })();
+    </script>
+    <style>
+        #mobile-menu {
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-in;
+    overflow: hidden;
+}
+#mobile-menu.hidden {
+    display: none;
+    max-height: 0;
+    opacity: 0;
+}
+#mobile-menu:not(.hidden) {
+    display: block;
+    max-height: 500px; /* Sufficient for your menu height */
+    opacity: 1;
+}
+        .nav-active {
+    color: #2563eb !important; /* Tailwind text-blue-600 */
+    border-bottom: 2px solid #2563eb;
+}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+ <nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
+       <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <a href="index.html" class="logo-link flex-shrink-0">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-1.5 rounded-lg">
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
+                </svg>
+            </div>
+            <!-- Slightly smaller text on mid-range screens to prevent wrapping -->
+            <div class="text-lg lg:text-xl xl:text-2xl font-bold text-slate-900 dark:text-white truncate">
+                Freight<span class="text-blue-600">Flow</span>
+            </div>
+        </div>
+    </a> 
+    
+    <!-- Mobile Menu Toggle -->
+    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
+
+    <!-- Desktop Menu: Targeted Scaling for 1024px -->
+    <div class="hidden lg:flex items-center lg:space-x-3 xl:space-x-6 font-medium text-[13px] xl:text-sm">
+        <a href="index.html" class="hover:text-blue-600 transition whitespace-nowrap">Home</a>
+        <a href="home2.html" class="hover:text-blue-600 transition whitespace-nowrap">Home2</a>
+        <a href="aboutus.html" class="hover:text-blue-600 transition whitespace-nowrap">Aboutus</a>
+        <a href="services.html" class="hover:text-blue-600 transition whitespace-nowrap">Services</a>
+        <a href="pricing.html" class="hover:text-blue-600 transition whitespace-nowrap">Pricing</a>
+        <a href="gallery.html" class="hover:text-blue-600 transition whitespace-nowrap">Gallery</a>
+        <a href="contact.html" class="hover:text-blue-600 transition whitespace-nowrap">Contact</a>
+        
+        <!-- Dashboard Dropdown -->
+        <div class="relative group">
+            <button class="flex items-center hover:text-blue-600 transition whitespace-nowrap">Dashboard▾</button>
+            <div class="hidden group-hover:block absolute top-full right-0 bg-white dark:bg-slate-800 shadow-xl p-4 mt-2 w-40 rounded border dark:border-slate-700 z-50">
+                <a href="user.html" class="block py-1 hover:text-blue-500">User Profile</a>
+            </div>
+        </div>
+
+        <!-- Toggles -->
+        <div class="flex items-center space-x-1 pl-2">
+            <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all">🌓</button>
+            <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all text-[10px] font-bold">LTR</button>
+        </div>
+
+        <!-- Auth Buttons: Padding adjusted for 1024px fit -->
+        <a href="login.html" class="border border-blue-600 px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition whitespace-nowrap">Login</a>
+        <a href="load.html" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">Get Load</a>
+    </div>
+</div>
+   
+<div id="mobile-menu" 
+     class="hidden lg:hidden absolute top-20 left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-2xl z-40 transition-all duration-300 ease-in-out px-6 py-6">
+           <a href="index.html" class="block">Home</a>
+            <a href="home2.html" class="block">Home2</a>
+            <a href="aboutus.html" class="block">Aboutus</a>
+            <a href="services.html" class="block">Services</a>
+            <a href="pricing.html" class="block">Pricing</a>
+            <a href="gallery.html" class="block">Gallery</a>
+            <a href="contact.html" class="block">contact</a>
+            <a href="user.html" class="block">Dashboard</a>
+           <div class="flex items-center gap-3 pt-2">
+    <button 
+        onclick="toggleTheme()" 
+        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
+        🌓
+    </button>
+
+    <button 
+        onclick="toggleDir()" 
+        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
+        LTR
+    </button>
+</div>
+            <hr class="dark:border-slate-700">
+      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+  <div class="flex flex-col sm:flex-row gap-3">
+
+    <a href="login.html"
+      class="w-full flex items-center justify-center px-5 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
+      Login
+    </a>
+
+    <a href="load.html"
+      class="w-full flex items-center justify-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg">
+      Post Load
+    </a>
+
+  </div>
+</div>
+        </div>
+
+    </nav>
+    <section class="max-w-7xl mx-auto px-6 py-12 md:py-24 overflow-hidden">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        <!-- Text Content -->
+        <div class="space-y-8 order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start">
+            <!-- Badge -->
+            <span class="inline-block px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] rounded-full">
+                Next-Gen Logistics
+            </span>
+            
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white leading-[1.1] max-w-xl">
+                Connecting Freight. <br>
+                <span class="text-indigo-600">Empowering Logistics.</span>
+            </h1>
+            
+            <!-- Subhead -->
+            <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-lg font-medium leading-relaxed">
+                We help shippers, carriers, and brokers move freight faster through smart technology, real-time visibility, and a trusted transportation network.
+            </p>
+            
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center lg:justify-start">
+               <a href="signup.html">
+                 <button class="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/20 w-full sm:w-auto whitespace-nowrap">
+                    Get Started
+                </button>
+               </a>
+               <a href="contact.html">
+                 <button class="px-8 py-4 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-700 text-indigo-600 font-bold rounded-full hover:bg-indigo-50 dark:hover:bg-slate-700 transition w-full sm:w-auto whitespace-nowrap">
+                    Contact Us
+                </button>
+               </a>
+               
+            </div>
+        </div>
+
+        <!-- Right Side: Image Content -->
+        <div class="relative order-1 lg:order-2 px-4 lg:px-0">
+            <!-- Decorative Background Element -->
+            <div class="absolute -top-10 -right-10 w-64 h-64 md:w-96 md:h-96 bg-indigo-100 dark:bg-indigo-900/20 rounded-full blur-3xl -z-10"></div>
+            
+            <!-- Hero Image -->
+            <img src="assets/abthero" 
+                 alt="Logistics Network" 
+                 class="relative rounded-3xl md:rounded-[2rem] shadow-2xl w-full object-cover h-[280px] sm:h-[400px] lg:h-[550px] block">
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-16 md:py-24">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        <!-- Left: Image Content -->
+        <div class="relative order-1">
+            <div class="absolute -top-6 -left-6 w-48 h-48 md:w-72 md:h-72 bg-indigo-100 dark:bg-indigo-900/20 rounded-full blur-3xl -z-10"></div>
+            <img src="assets/abt1" 
+                 alt="Our Logistics Journey" 
+                 class="rounded-3xl shadow-2xl w-full object-cover h-[300px] sm:h-[400px] lg:h-[500px]">
+        </div>
+
+        <!-- Right: Text Content -->
+        <div class="space-y-6 order-2 text-center lg:text-left">
+            <span class="text-indigo-600 font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs">Our Story</span>
+            
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+                Our Journey
+            </h2>
+            
+            <div class="space-y-6 text-slate-600 dark:text-slate-400 font-medium text-base md:text-lg leading-relaxed">
+                <p>
+                    What started as a mission to simplify freight transportation has grown into a platform that connects businesses, carriers, and logistics professionals through innovative technology.
+                </p>
+                <p class="p-6 bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-600 text-indigo-900 dark:text-indigo-100 italic rounded-r-2xl">
+                    "We believe freight management should be simple, transparent, and efficient."
+                </p>
+            </div>
+            
+            <!-- Decorative Accent -->
+            <div class="flex justify-center lg:justify-start gap-2 pt-4">
+                <div class="w-16 h-1.5 bg-indigo-600 rounded-full"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        
+        <!-- Mission Card -->
+        <div class="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="w-16 h-16 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center mb-8 text-indigo-600">
+                <!-- Mission Icon: Rocket -->
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Our Mission</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                To simplify freight movement by connecting shippers and carriers through reliable, technology-driven logistics solutions.
+            </p>
+        </div>
+
+        <!-- Vision Card -->
+        <div class="bg-white dark:bg-slate-900 p-8 md:p-10 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div class="w-16 h-16 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center mb-8 text-indigo-600">
+                <!-- Vision Icon: Globe -->
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Our Vision</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                To become the most trusted digital freight marketplace, helping businesses move goods smarter and faster.
+            </p>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="mb-16 text-center">
+        <span class="text-indigo-600 font-bold tracking-[0.2em] uppercase text-xs">Our Services</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mt-4">What We Do</h2>
+    </div>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Feature 1: Load Matching -->
+        <div class="group p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-300">
+            <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Smart Load Matching</h3>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">Match available freight with verified carriers instantly.</p>
+        </div>
+
+        <!-- Feature 2: Real-Time Tracking -->
+        <div class="group p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-300">
+            <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Real-Time Tracking</h3>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">Monitor shipments from pickup to delivery.</p>
+        </div>
+
+        <!-- Feature 3: Freight Brokerage -->
+        <div class="group p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-300">
+            <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Freight Brokerage</h3>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">Connect businesses with trusted transportation.</p>
+        </div>
+
+        <!-- Feature 4: Analytics -->
+        <div class="group p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-900 transition-all duration-300">
+            <div class="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mb-6 text-indigo-600 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold mb-2">Analytics & Insights</h3>
+            <p class="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">Make data-driven logistics decisions trusted partners.</p>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-20 bg-slate-50 dark:bg-slate-950 rounded-[3rem]">
+    <div class="mb-16 text-center">
+        <span class="text-indigo-600 font-bold tracking-[0.2em] uppercase text-xs">Benefits</span>
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mt-4">Why Choose Us?</h2>
+    </div>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Feature 1: Fast Matching -->
+        <div class="text-center p-6">
+            <div class="w-16 h-16 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-indigo-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Fast Matching</h3>
+            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Reduce load booking time significantly.</p>
+        </div>
+
+        <!-- Feature 2: Verified Network -->
+        <div class="text-center p-6">
+            <div class="w-16 h-16 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-indigo-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Verified Network</h3>
+            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Work with trusted carriers and partners.</p>
+        </div>
+
+        <!-- Feature 3: Complete Visibility -->
+        <div class="text-center p-6">
+            <div class="w-16 h-16 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-indigo-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Visibility</h3>
+            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Track shipments in real time compliance.</p>
+        </div>
+
+        <!-- Feature 4: Secure Platform -->
+        <div class="text-center p-6">
+            <div class="w-16 h-16 bg-white dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-indigo-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Secure Platform</h3>
+            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">Enterprise-grade security and compliance.</p>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="mb-16 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white">Our Values</h2>
+        <p class="text-slate-500 mt-4 font-medium text-lg">The principles that drive Freight Flow.</p>
+    </div>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Trust -->
+        <div class="group p-8 rounded-3xl border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
+            <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center mb-6 text-indigo-600">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Trust</h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">Building lasting relationships  transparency.</p>
+        </div>
+
+        <!-- Innovation -->
+        <div class="group p-8 rounded-3xl border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
+            <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center mb-6 text-indigo-600">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Innovation</h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">Using technology to solve logistics challenges.</p>
+        </div>
+
+        <!-- Reliability -->
+        <div class="group p-8 rounded-3xl border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
+            <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center mb-6 text-indigo-600">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Reliability</h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">Delivering consistent wil and  service.</p>
+        </div>
+
+        <!-- Growth -->
+        <div class="group p-8 rounded-3xl border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300">
+            <div class="w-14 h-14 bg-indigo-50 dark:bg-indigo-900/30 rounded-2xl flex items-center justify-center mb-6 text-indigo-600">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 7h6m0 0v6m0-6l-8 8-4-4-6 6"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Growth</h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">Helping customers scale their businesses.</p>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="mb-16 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white">Meet Our Team</h2>
+        <p class="text-slate-500 mt-4 font-medium">The experts behind Freight Flow success.</p>
+    </div>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Team Card Template -->
+        <!-- Card 1: Leadership -->
+        <div class="group relative overflow-hidden rounded-3xl h-96 cursor-pointer">
+            <img src="assets/l1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 transition-opacity group-hover:bg-indigo-900/40"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Leadership</h3>
+                <p class="text-sm font-medium opacity-90">Strategic Direction</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Operations -->
+        <div class="group relative overflow-hidden rounded-3xl h-96 cursor-pointer">
+            <img src="assets/l2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 transition-opacity group-hover:bg-indigo-900/40"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Operations</h3>
+                <p class="text-sm font-medium opacity-90">Logistics & Fleet</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Customer Success -->
+        <div class="group relative overflow-hidden rounded-3xl h-96 cursor-pointer">
+            <img src="assets/l3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 transition-opacity group-hover:bg-indigo-900/40"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Customer Success</h3>
+                <p class="text-sm font-medium opacity-90">Client Relations</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Technology -->
+        <div class="group relative overflow-hidden rounded-3xl h-96 cursor-pointer">
+            <img src="assets/l4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 transition-opacity group-hover:bg-indigo-900/40"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Technology</h3>
+                <p class="text-sm font-medium opacity-90">Innovation & Dev</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="bg-indigo-600 rounded-[2rem] p-8 md:p-16 flex flex-col items-center text-center shadow-2xl shadow-indigo-600/20">
+        
+        <!-- Heading -->
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight max-w-2xl">
+            Ready to Transform Your Freight Operations?
+        </h2>
+        
+        <!-- Subtext -->
+        <p class="text-indigo-100 text-lg md:text-xl font-medium max-w-xl mb-10 leading-relaxed">
+            Join thousands of businesses, carriers, and brokers already using our platform.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+           <a href="signup.html">
+             <button class="px-8 py-4 bg-white text-indigo-600 font-bold rounded-full hover:bg-indigo-50 transition shadow-lg w-full sm:w-auto whitespace-nowrap">
+                Get Started Today
+            </button>
+           </a>
+           <a href="contact.html">
+             <button class="px-8 py-4 bg-indigo-700/50 text-white font-bold rounded-full hover:bg-indigo-700 transition border border-indigo-400 w-full sm:w-auto whitespace-nowrap">
+                Schedule a Demo
+            </button>
+           </a>
+           
+        </div>
+
+    </div>
+</section>
+<!-- Font Loading -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    body { font-family: 'Inter', sans-serif; }
+</style>
+
+
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-300">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+  <!-- Brand -->
+  <div>
+    <a href="index.html">
+           <div class="flex items-center gap-3 mb-5">
+
+      <div class="bg-blue-600 p-2 rounded-xl shadow-lg">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2"/>
+        </svg>
+      </div>
+
+      <h2 class="text-2xl font-bold text-white">
+        Freight<span class="text-blue-500">Flow</span>
+      </h2>
+
+    </div>
+    </a>
+ 
+
+    <p class="text-slate-400 leading-relaxed">
+      Smart freight brokerage and load matching platform helping carriers,
+      shippers and brokers connect faster.
+    </p>
+
+    <div class="flex gap-4 mt-6">
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-600 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5c0-2.5 1.5-4 4-4 1.2 0 2.5.2 2.5.2V8h-1.4c-1.2 0-1.5.8-1.5 1.6V12h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-sky-500 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 5.92c-.77.35-1.6.58-2.47.68a4.3 4.3 0 001.89-2.37 8.56 8.56 0 01-2.72 1.04A4.28 4.28 0 0015.5 4c-2.38 0-4.31 1.94-4.31 4.33 0 .34.04.67.11.98A12.15 12.15 0 013 4.89a4.34 4.34 0 001.33 5.79 4.24 4.24 0 01-1.95-.54v.05c0 2.1 1.48 3.86 3.46 4.26a4.28 4.28 0 01-1.94.07c.55 1.71 2.12 2.95 4 2.98A8.58 8.58 0 012 19.54 12.1 12.1 0 008.56 21c7.87 0 12.17-6.54 12.17-12.21l-.01-.56A8.76 8.76 0 0022 5.92z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-700 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7 0h3.83v2.16h.05c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.66 4.8 6.12V24h-4v-7.52c0-1.79-.03-4.09-2.49-4.09-2.49 0-2.87 1.95-2.87 3.96V24h-4V8z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Quick Links
+    </h3>
+
+    <ul class="space-y-3">
+      <li><a href="index.html" class="hover:text-blue-500 transition">Home</a></li>
+      <li><a href="aboutus.html" class="hover:text-blue-500 transition">About Us</a></li>
+      <li><a href="services.html" class="hover:text-blue-500 transition">Services</a></li>
+      <li><a href="pricing.html" class="hover:text-blue-500 transition">Pricing</a></li>
+      <li><a href="contact.html" class="hover:text-blue-500 transition">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Resources -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Resources
+    </h3>
+
+    <ul class="space-y-3">
+     <li><a href="gallery.html" class="hover:text-blue-500 transition">Gallery</a></li>
+      <li><a href="home2.html" class="hover:text-blue-500 transition">Home2</a></li>
+
+    <li><a href="load.html" class="hover:text-blue-500 transition">Post Load</a></li>
+      <li><a href="404.html" class="hover:text-blue-500 transition">404 Page</a></li>
+      <li><a href="comingsoon.html" class="hover:text-blue-500 transition">Coming Soon</a></li>
+    </ul>
+  </div>
+
+  <!-- Newsletter -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Newsletter
+    </h3>
+
+    <p class="text-slate-400 mb-4">
+      Get freight industry updates and logistics news.
+    </p>
+
+    <form class="space-y-3">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 focus:border-blue-500 focus:outline-none text-white">
+
+      <button
+        class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all duration-300">
+        Subscribe
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<div class="border-t border-slate-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+
+  <p class="text-slate-500 text-sm text-center md:text-left">
+    © 2026 FreightFlow. All rights reserved.
+  </p>
+
+  <div class="flex gap-6 text-sm">
+    <a href="#" class="hover:text-blue-500">Privacy Policy</a>
+    <a href="#" class="hover:text-blue-500">Terms of Service</a>
+  </div>
+
+</div>
+
+
+  </div>
+
+</footer>
+
+<script>
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        
+        // Select only the navigation menu links
+        // We add ':not(.logo-link)' to ensure the logo is ignored
+        const navLinks = document.querySelectorAll('nav a:not(.logo-link)');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Exact match for the current page
+            if (href === currentPath) {
+                link.classList.add('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            } else {
+                // Optional: Ensure class is removed if it doesn't match
+                link.classList.remove('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            }
+        });
+    }
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    window.onload = setActiveNavLink;
+</script>
+       <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function toggleDir() {
+            const html = document.documentElement;
+            const newDir = html.dir === 'rtl' ? 'ltr' : 'rtl';
+            html.dir = newDir;
+            localStorage.setItem('dir', newDir);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleDashboard(event) {
+            event.stopPropagation();
+            document.getElementById('dash-dropdown').classList.toggle('hidden');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('button')) {
+                document.getElementById('dash-dropdown').classList.add('hidden');
+            }
+        }
+    </script>
+<script>
+    // Automatically set active state for Nav Links
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname.split("/").pop(); // Gets the filename
+        const navLinks = document.querySelectorAll('nav a');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Check if href matches current path (default to index.html if on root)
+            if (href === currentPath || (currentPath === "" && href === "index.html")) {
+                link.classList.add('nav-active');
+            }
+        });
+    }
+
+    // Run on page load
+    window.onload = setActiveNavLink;
+
+   
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freight Flow| Freight Brokerage Platform</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-white' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2'/%3E%3C/svg%3E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind dark mode configuration
+        tailwind.config = { darkMode: 'class' };
+
+        // Initialization to prevent flash of wrong theme
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedDir = localStorage.getItem('dir') || 'ltr';
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            document.documentElement.dir = savedDir;
+        })();
+    </script>
+    <style>
+        #mobile-menu {
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-in;
+    overflow: hidden;
+}
+#mobile-menu.hidden {
+    display: none;
+    max-height: 0;
+    opacity: 0;
+}
+#mobile-menu:not(.hidden) {
+    display: block;
+    max-height: 500px; /* Sufficient for your menu height */
+    opacity: 1;
+}
+        .nav-active {
+    color: #2563eb !important; /* Tailwind text-blue-600 */
+    border-bottom: 2px solid #2563eb;
+}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+ <nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
+       <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <a href="index.html" class="logo-link flex-shrink-0">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-1.5 rounded-lg">
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
+                </svg>
+            </div>
+            <!-- Slightly smaller text on mid-range screens to prevent wrapping -->
+            <div class="text-lg lg:text-xl xl:text-2xl font-bold text-slate-900 dark:text-white truncate">
+                Freight<span class="text-blue-600">Flow</span>
+            </div>
+        </div>
+    </a> 
+    
+    <!-- Mobile Menu Toggle -->
+    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
+
+    <!-- Desktop Menu: Targeted Scaling for 1024px -->
+    <div class="hidden lg:flex items-center lg:space-x-3 xl:space-x-6 font-medium text-[13px] xl:text-sm">
+        <a href="index.html" class="hover:text-blue-600 transition whitespace-nowrap">Home</a>
+        <a href="home2.html" class="hover:text-blue-600 transition whitespace-nowrap">Home2</a>
+        <a href="aboutus.html" class="hover:text-blue-600 transition whitespace-nowrap">Aboutus</a>
+        <a href="services.html" class="hover:text-blue-600 transition whitespace-nowrap">Services</a>
+        <a href="pricing.html" class="hover:text-blue-600 transition whitespace-nowrap">Pricing</a>
+        <a href="gallery.html" class="hover:text-blue-600 transition whitespace-nowrap">Gallery</a>
+        <a href="contact.html" class="hover:text-blue-600 transition whitespace-nowrap">Contact</a>
+        
+        <!-- Dashboard Dropdown -->
+        <div class="relative group">
+            <button class="flex items-center hover:text-blue-600 transition whitespace-nowrap">Dashboard▾</button>
+            <div class="hidden group-hover:block absolute top-full right-0 bg-white dark:bg-slate-800 shadow-xl p-4 mt-2 w-40 rounded border dark:border-slate-700 z-50">
+                <a href="user.html" class="block py-1 hover:text-blue-500">User Profile</a>
+            </div>
+        </div>
+
+        <!-- Toggles -->
+        <div class="flex items-center space-x-1 pl-2">
+            <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all">🌓</button>
+            <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all text-[10px] font-bold">LTR</button>
+        </div>
+
+        <!-- Auth Buttons: Padding adjusted for 1024px fit -->
+        <a href="login.html" class="border border-blue-600 px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition whitespace-nowrap">Login</a>
+        <a href="load.html" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">Get Load</a>
+    </div>
+</div>
+   
+<div id="mobile-menu" 
+     class="hidden lg:hidden absolute top-20 left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-2xl z-40 transition-all duration-300 ease-in-out px-6 py-6">
+           <a href="index.html" class="block">Home</a>
+            <a href="home2.html" class="block">Home2</a>
+            <a href="aboutus.html" class="block">Aboutus</a>
+            <a href="services.html" class="block">Services</a>
+            <a href="pricing.html" class="block">Pricing</a>
+            <a href="gallery.html" class="block">Gallery</a>
+            <a href="contact.html" class="block">contact</a>
+            <a href="user.html" class="block">Dashboard</a>
+           <div class="flex items-center gap-3 pt-2">
+    <button 
+        onclick="toggleTheme()" 
+        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
+        🌓
+    </button>
+
+    <button 
+        onclick="toggleDir()" 
+        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
+        LTR
+    </button>
+</div>
+            <hr class="dark:border-slate-700">
+      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+  <div class="flex flex-col sm:flex-row gap-3">
+
+    <a href="login.html"
+      class="w-full flex items-center justify-center px-5 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
+      Login
+    </a>
+
+    <a href="load.html"
+      class="w-full flex items-center justify-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg">
+      Post Load
+    </a>
+
+  </div>
+</div>
+        </div>
+
+    </nav>
+    <section class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col lg:flex-row items-center gap-12">
+    
+    <div class="flex-1 space-y-6 text-center lg:text-left">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white">
+            Connect Loads with Reliable Carriers  <span class="text-blue-600">Faster Than Ever</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 font-normal max-w-2xl mx-auto lg:mx-0">
+            A smart freight marketplace that helps shippers post loads, carriers find profitable routes, and brokers manage operations seamlessly.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="load.html" class="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/30 text-center">
+                Post a Load
+            </a>
+            <a href="signup.html" class="px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition text-center">
+                Find Loads
+            </a>
+        </div>
+    </div>
+
+    <div class="flex-1 w-full max-w-lg lg:max-w-none">
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+            <img src="assets/index hero" 
+                 alt="Freight Logistics" 
+                 class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-blue-900/10 dark:bg-blue-900/20"></div>
+        </div>
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="stats-container">
+        
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                <span class="counter" data-target="10">0</span>k+
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium">Active Carriers</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                <span class="counter" data-target="50">0</span>k+
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium">Loads Posted</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                <span class="counter" data-target="98">0</span>%
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium">Delivery</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">24/7</h3>
+            <p class="text-slate-600 dark:text-slate-400 font-medium">Support</p>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    const counters = document.querySelectorAll('.counter');
+    const container = document.getElementById('stats-container');
+
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const updateCount = () => {
+            const count = +counter.innerText;
+            const increment = target / 100; // Adjust speed here
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(updateCount, 20);
+            } else {
+                counter.innerText = target;
+            }
+        };
+        updateCount();
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            counters.forEach(counter => animateCounter(counter));
+            observer.disconnect(); // Animate only once
+        }
+    }, { threshold: 0.5 });
+
+    observer.observe(container);
+</script>
+<section class="w-full py-24 px-4 bg-white dark:bg-slate-950 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        
+        <!-- Left Side: Interactive Steps -->
+        <div class="space-y-12">
+            <div class="mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">How It Works</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 font-normal">Three simple steps to move your freight with total efficiency.</p>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="group cursor-pointer">
+                <div class="flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white shadow-sm">01</div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Post Your Load</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Enter your pickup location, delivery destination, and freight details into our secure portal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="group cursor-pointer">
+                <div class="flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white shadow-sm">02</div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Match With Carriers</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Our AI engine instantly matches your requirement with the best-rated carriers in our network.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="group cursor-pointer">
+                <div class="flex items-start gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white shadow-sm">03</div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Track Delivery</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Enjoy full visibility with real-time tracking, automated updates, and digital proof-of-delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Image visible on ALL layouts -->
+        <div class="relative w-full">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform duration-700 hover:scale-[1.02]">
+                <!-- Ensure the src is a valid link or local path -->
+                <img src="assets/Logistics Process" alt="Logistics Process" class="w-full h-full object-cover">
+                
+                <!-- Overlay Gradient -->
+                <div class="absolute inset-0 bg-blue-600/20"></div>
+                
+                <!-- Floating Card -->
+                <div class="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-5 md:p-6 rounded-2xl border border-white/20 shadow-xl">
+                    <p class="text-slate-900 dark:text-white font-semibold italic text-sm md:text-base">"The most efficient way to manage our national freight network."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Platform For Everyone</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-normal max-w-2xl mx-auto text-lg">Tailored solutions to power your specific role in the logistics ecosystem.</p>
+        </div>
+
+        <!-- Segments Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Shippers -->
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer hover:-translate-y-2">
+                <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Shippers</h3>
+                <ul class="space-y-4 text-slate-600 dark:text-slate-400 font-normal">
+                    <li class="flex items-center gap-3"><span class="text-blue-500 font-bold">●</span> Post loads instantly</li>
+                    <li class="flex items-center gap-3"><span class="text-blue-500 font-bold">●</span> Compare carrier quotes</li>
+                    <li class="flex items-center gap-3"><span class="text-blue-500 font-bold">●</span> Track shipments</li>
+                </ul>
+            </div>
+
+            <!-- Carriers -->
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:border-green-500 hover:shadow-2xl hover:shadow-green-500/10 cursor-pointer hover:-translate-y-2">
+                <div class="w-16 h-16 bg-green-50 dark:bg-green-900/20 text-green-600 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-green-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17l8-8"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Carriers</h3>
+                <ul class="space-y-4 text-slate-600 dark:text-slate-400 font-normal">
+                    <li class="flex items-center gap-3"><span class="text-green-500 font-bold">●</span> Find available loads</li>
+                    <li class="flex items-center gap-3"><span class="text-green-500 font-bold">●</span> Reduce empty miles</li>
+                    <li class="flex items-center gap-3"><span class="text-green-500 font-bold">●</span> Get paid faster</li>
+                </ul>
+            </div>
+
+            <!-- Brokers -->
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:border-purple-500 hover:shadow-2xl hover:shadow-purple-500/10 cursor-pointer hover:-translate-y-2">
+                <div class="w-16 h-16 bg-purple-50 dark:bg-purple-900/20 text-purple-600 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-purple-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Brokers</h3>
+                <ul class="space-y-4 text-slate-600 dark:text-slate-400 font-normal">
+                    <li class="flex items-center gap-3"><span class="text-purple-500 font-bold">●</span> Manage customers</li>
+                    <li class="flex items-center gap-3"><span class="text-purple-500 font-bold">●</span> Dispatch efficiently</li>
+                    <li class="flex items-center gap-3"><span class="text-purple-500 font-bold">●</span> Grow network</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="w-full bg-white dark:bg-slate-950 py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Why Choose Us</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-normal">Superior technology for a modern logistics experience.</p>
+        </div>
+
+        <!-- Comparison Table (Visible on md+) -->
+        <div class="hidden md:block overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50 dark:bg-slate-900">
+                        <th class="p-8 text-slate-500 font-medium">Feature</th>
+                        <th class="p-8 text-slate-500 font-medium">Traditional Broker</th>
+                        <th class="p-8 text-blue-600 font-bold">Your Platform</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                        <td class="p-8 font-semibold">Load Matching</td>
+                        <td class="p-8 text-slate-600 dark:text-slate-400">Manual</td>
+                        <td class="p-8 font-semibold text-blue-600">Automated</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                        <td class="p-8 font-semibold">Tracking</td>
+                        <td class="p-8 text-slate-600 dark:text-slate-400">Limited</td>
+                        <td class="p-8 font-semibold text-blue-600">Real-Time</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                        <td class="p-8 font-semibold">Documentation</td>
+                        <td class="p-8 text-slate-600 dark:text-slate-400">Paper-Based</td>
+                        <td class="p-8 font-semibold text-blue-600">Digital</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                        <td class="p-8 font-semibold">Notifications</td>
+                        <td class="p-8 text-slate-600 dark:text-slate-400">Calls/Emails</td>
+                        <td class="p-8 font-semibold text-blue-600">Instant Alerts</td>
+                    </tr>
+                    <tr class="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                        <td class="p-8 font-semibold">Analytics</td>
+                        <td class="p-8 text-slate-600 dark:text-slate-400">Basic</td>
+                        <td class="p-8 font-semibold text-blue-600">Advanced</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Mobile View (Cards Stack) -->
+        <div class="md:hidden space-y-4">
+            <!-- Row 1 -->
+            <div class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h4 class="font-bold text-lg mb-2">Load Matching</h4>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Traditional: <span class="font-medium text-slate-900 dark:text-white">Manual</span></span>
+                    <span class="font-bold text-blue-600">Platform: Automated</span>
+                </div>
+            </div>
+            <!-- Row 2 -->
+            <div class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h4 class="font-bold text-lg mb-2">Tracking</h4>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Traditional: <span class="font-medium text-slate-900 dark:text-white">Limited</span></span>
+                    <span class="font-bold text-blue-600">Platform: Real-Time</span>
+                </div>
+            </div>
+            <!-- Row 3 -->
+            <div class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h4 class="font-bold text-lg mb-2">Documentation</h4>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Traditional: <span class="font-medium text-slate-900 dark:text-white">Paper</span></span>
+                    <span class="font-bold text-blue-600">Platform: Digital</span>
+                </div>
+            </div>
+            <!-- Row 4 -->
+            <div class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h4 class="font-bold text-lg mb-2">Notifications</h4>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Traditional: <span class="font-medium text-slate-900 dark:text-white">Emails</span></span>
+                    <span class="font-bold text-blue-600">Platform: Instant</span>
+                </div>
+            </div>
+            <!-- Row 5 -->
+            <div class="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                <h4 class="font-bold text-lg mb-2">Analytics</h4>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Traditional: <span class="font-medium text-slate-900 dark:text-white">Basic</span></span>
+                    <span class="font-bold text-blue-600">Platform: Advanced</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section -->
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">Platform Services</h2>
+        </div>
+
+        <!-- Grid: 1 col (mobile), 2 cols (tablet), 3 cols (desktop) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1: Smart Load Matching -->
+            <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="assets/p1" alt="Smart Load Matching" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Smart Load Matching</h3>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">AI-powered matching between loads and carriers.</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Live Tracking -->
+            <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="assets/p2" alt="Live Tracking" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Live Tracking</h3>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">GPS-based shipment visibility.</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Rate Management -->
+            <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="assets/p3" alt="Rate Management" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Rate Management</h3>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Compare rates and negotiate freight pricing.</p>
+                </div>
+            </div>
+
+            <!-- Card 4: Digital Documentation -->
+            <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="assets/p4" alt="Digital Documentation" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Digital Documentation</h3>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Upload BOL, invoices, and proof of delivery.</p>
+                </div>
+            </div>
+
+            <!-- Card 5: Instant Notifications -->
+            <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="assets/p5" alt="Instant Notifications" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Instant Notifications</h3>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Get updates on load status and carrier availability.</p>
+                </div>
+            </div>
+
+            <!-- Card 6: Analytics Dashboard -->
+            <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="assets/p6" alt="Analytics Dashboard" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Analytics Dashboard</h3>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Track revenue, loads, and carrier performance.</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Transparent Pricing</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-normal">Choose the plan that fits your business needs.</p>
+        </div>
+
+        <!-- Pricing Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Tier 1: Basic -->
+            <div class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer flex flex-col">
+                <h3 class="text-xl font-semibold text-slate-500 mb-4">Starter</h3>
+                <div class="text-4xl font-bold mb-6">$49<span class="text-lg font-normal text-slate-400">/mo</span></div>
+                <ul class="space-y-4 mb-8 text-slate-600 dark:text-slate-400 flex-grow">
+                    <li>✓ 10 Loads/mo</li>
+                    <li>✓ Basic Tracking</li>
+                    <li>✓ Email Support</li>
+                </ul>
+                <button class="w-full py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-semibold hover:bg-slate-900 hover:text-white transition-all">Get Started</button>
+            </div>
+
+            <!-- Tier 2: Pro (Featured/Highlighted) -->
+            <div class="relative p-8 bg-blue-600 rounded-3xl text-white shadow-2xl scale-105 z-10 cursor-pointer flex flex-col">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-white text-blue-600 px-4 py-1 rounded-full text-sm font-bold">MOST POPULAR</div>
+                <h3 class="text-xl font-semibold text-blue-100 mb-4">Professional</h3>
+                <div class="text-4xl font-bold mb-6">$149<span class="text-lg font-normal text-blue-200">/mo</span></div>
+                <ul class="space-y-4 mb-8 text-blue-50 flex-grow">
+                    <li>✓ Unlimited Loads</li>
+                    <li>✓ Real-Time GPS</li>
+                    <li>✓ Analytics Dashboard</li>
+                    <li>✓ Priority Support</li>
+                </ul>
+                <button class="w-full py-3 rounded-xl bg-white text-blue-600 font-semibold hover:bg-slate-100 transition-all">Choose Pro</button>
+            </div>
+
+            <!-- Tier 3: Enterprise -->
+            <div class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer flex flex-col">
+                <h3 class="text-xl font-semibold text-slate-500 mb-4">Enterprise</h3>
+                <div class="text-4xl font-bold mb-6">Custom</div>
+                <ul class="space-y-4 mb-8 text-slate-600 dark:text-slate-400 flex-grow">
+                    <li>✓ Dedicated Account Mgr</li>
+                    <li>✓ API Integration</li>
+                    <li>✓ Advanced Customization</li>
+                </ul>
+                <button class="w-full py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 font-semibold hover:bg-slate-900 hover:text-white transition-all">Contact Sales</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+        <!-- Header -->
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-16">Trusted Partners</h2>
+
+        <!-- Logo Grid: 8 Partners -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 items-center justify-items-center">
+            
+            <!-- Generate 8 Uniform Partner Cards -->
+            <!-- Use a helper loop logic concept: -->
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Logistics Corp</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Freight Hub</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Warehousing Inc</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Fast Trans</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Global Ship</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Cargo Net</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Port Logic</span>
+                </div>
+            </div>
+
+            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
+                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
+                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Prime Route</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Security & Compliance</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-normal max-w-xl mx-auto text-lg">Enterprise-grade protection designed to keep your logistics operations safe, compliant, and reliable.</p>
+        </div>
+
+        <!-- Security Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Feature Card Component -->
+            <!-- We use 'dark:bg-slate-900' and 'dark:border-slate-800' for dark mode compatibility -->
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl dark:hover:shadow-blue-500/10 transition-all duration-500 cursor-pointer hover:-translate-y-2">
+                <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3">Secure Data Encryption</h3>
+                <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Military-grade AES-256 encryption for all sensitive logistics information.</p>
+            </div>
+
+            <!-- Repeat for Features 2, 3, 4 -->
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl dark:hover:shadow-blue-500/10 transition-all duration-500 cursor-pointer hover:-translate-y-2">
+                <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3">Carrier Verification</h3>
+                <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Rigorous background checks to ensure all carriers are trusted.</p>
+            </div>
+
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl dark:hover:shadow-blue-500/10 transition-all duration-500 cursor-pointer hover:-translate-y-2">
+                <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3">Compliance Monitoring</h3>
+                <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Automatic tracking of industry regulations and safety requirements.</p>
+            </div>
+
+            <div class="group p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-xl dark:hover:shadow-blue-500/10 transition-all duration-500 cursor-pointer hover:-translate-y-2">
+                <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-3">Role-Based Access</h3>
+                <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Fine-grained permissions to manage internal and external user access.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-12 md:py-20 px-4 md:px-8 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 md:mb-6">Client Success Stories</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-normal text-base md:text-lg max-w-xl mx-auto">See how businesses are scaling and optimizing with our logistics platform.</p>
+        </div>
+
+        <!-- Responsive Testimonial Grid -->
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+    
+    <div class="group p-6 md:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:shadow-2xl dark:hover:shadow-blue-500/10">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800">
+                <img src="assets/t1" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-base md:text-lg">Alex Rivers</h4>
+                <p class="text-xs md:text-sm text-blue-600 dark:text-blue-400 font-medium">Logistics Manager</p>
+            </div>
+        </div>
+        <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm italic">"The platform's automated matching has reduced our empty miles by 30% in just three months. Truly a game changer."</p>
+    </div>
+
+    <div class="group p-6 md:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:shadow-2xl dark:hover:shadow-blue-500/10">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800">
+                <img src="assets/t2" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-base md:text-lg">Sarah Chen</h4>
+                <p class="text-xs md:text-sm text-blue-600 dark:text-blue-400 font-medium">Freight Broker</p>
+            </div>
+        </div>
+        <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm italic">"Real-time visibility used to be a dream. Now, it's our standard operating procedure. Excellent UI!"</p>
+    </div>
+
+    <div class="md:col-span-2 group p-8 md:p-10 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:shadow-2xl dark:hover:shadow-blue-500/10 flex flex-col md:flex-row items-center gap-8">
+        <div class="flex items-center gap-4 shrink-0">
+            <div class="w-20 h-20 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800">
+                <img src="assets/t3" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="text-left">
+                <h4 class="font-bold text-slate-900 dark:text-white text-lg">Marcus Thorne</h4>
+                <p class="text-sm text-blue-600 dark:text-blue-400 font-medium">Fleet Owner</p>
+            </div>
+        </div>
+        <div class="border-l-0 md:border-l border-slate-200 dark:border-slate-800 pl-0 md:pl-8 italic text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-base">
+            "The support team is incredible, and the digital documentation feature has saved us hundreds of man-hours. It transformed our entire workflow, allowing us to focus on growth instead of paperwork."
+        </div>
+    </div>
+
+</div>
+    </div>
+</section>
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 transition-colors duration-500">
+    <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h2>
+            <p class="text-slate-600 dark:text-slate-400 font-normal">Everything you need to know about the Freight Flow platform.</p>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="space-y-4">
+            
+            <!-- Item 1 -->
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 transition-all duration-500 hover:border-blue-500 dark:hover:border-blue-500 cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white text-lg">
+                    How does load matching work?
+                    <span class="text-blue-600 transition-transform group-open:rotate-180">▼</span>
+                </summary>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">
+                    Our AI-powered engine automatically analyzes your cargo requirements and matches them with available carriers in real-time, ensuring optimal route efficiency and cost-effectiveness.
+                </p>
+            </details>
+
+            <!-- Item 2 -->
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 transition-all duration-500 hover:border-blue-500 dark:hover:border-blue-500 cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white text-lg">
+                    How are carriers verified?
+                    <span class="text-blue-600 transition-transform group-open:rotate-180">▼</span>
+                </summary>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">
+                    We conduct a multi-step background check, including license validation, insurance verification, and historical performance reviews for every carrier in our network.
+                </p>
+            </details>
+
+            <!-- Item 3 -->
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 transition-all duration-500 hover:border-blue-500 dark:hover:border-blue-500 cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white text-lg">
+                    Can I track shipments in real time?
+                    <span class="text-blue-600 transition-transform group-open:rotate-180">▼</span>
+                </summary>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">
+                    Yes! Our platform provides GPS-based tracking, allowing you and your customers to monitor the exact location and status of your shipments at any time.
+                </p>
+            </details>
+
+            <!-- Item 4 -->
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 transition-all duration-500 hover:border-blue-500 dark:hover:border-blue-500 cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white text-lg">
+                    How do payments work?
+                    <span class="text-blue-600 transition-transform group-open:rotate-180">▼</span>
+                </summary>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">
+                    We utilize a secure, encrypted digital payment gateway that automates invoicing upon proof-of-delivery, ensuring carriers are paid faster and shippers have clear audit trails.
+                </p>
+            </details>
+
+            <!-- Item 5 -->
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 transition-all duration-500 hover:border-blue-500 dark:hover:border-blue-500 cursor-pointer">
+                <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white text-lg">
+                    Is there a mobile app?
+                    <span class="text-blue-600 transition-transform group-open:rotate-180">▼</span>
+                </summary>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">
+                    Yes, VEXA TECH is available on both iOS and Android. Drivers can use the app for real-time tracking, digital document uploads, and instant load notifications.
+                </p>
+            </details>
+
+        </div>
+    </div>
+</section>
+<section class="w-full py-20 px-4 md:px-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Gradient Container -->
+        <div class="relative bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-16 overflow-hidden shadow-2xl">
+            
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-black opacity-10 rounded-full blur-3xl"></div>
+
+            <!-- Content -->
+            <div class="relative z-10 text-center text-white">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight">Ready to Move Freight Smarter?</h2>
+                <p class="text-blue-100 text-lg md:text-xl font-normal mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Connect with trusted carriers, automate operations, and grow your logistics business today.
+                </p>
+
+                <!-- Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="load.html" class="w-full sm:w-auto px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-slate-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Post a Load
+                    </a>
+                    <a href="signup.html" class="w-full sm:w-auto px-8 py-4 bg-blue-800/40 border border-blue-400 text-white font-semibold rounded-xl hover:bg-blue-800/60 transition-all duration-300 transform hover:scale-105">
+                        Become a Carrier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-300">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+  <!-- Brand -->
+  <div>
+    <a href="index.html">
+           <div class="flex items-center gap-3 mb-5">
+
+      <div class="bg-blue-600 p-2 rounded-xl shadow-lg">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2"/>
+        </svg>
+      </div>
+
+      <h2 class="text-2xl font-bold text-white">
+        Freight<span class="text-blue-500">Flow</span>
+      </h2>
+
+    </div>
+    </a>
+ 
+
+    <p class="text-slate-400 leading-relaxed">
+      Smart freight brokerage and load matching platform helping carriers,
+      shippers and brokers connect faster.
+    </p>
+
+    <div class="flex gap-4 mt-6">
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-600 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5c0-2.5 1.5-4 4-4 1.2 0 2.5.2 2.5.2V8h-1.4c-1.2 0-1.5.8-1.5 1.6V12h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-sky-500 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 5.92c-.77.35-1.6.58-2.47.68a4.3 4.3 0 001.89-2.37 8.56 8.56 0 01-2.72 1.04A4.28 4.28 0 0015.5 4c-2.38 0-4.31 1.94-4.31 4.33 0 .34.04.67.11.98A12.15 12.15 0 013 4.89a4.34 4.34 0 001.33 5.79 4.24 4.24 0 01-1.95-.54v.05c0 2.1 1.48 3.86 3.46 4.26a4.28 4.28 0 01-1.94.07c.55 1.71 2.12 2.95 4 2.98A8.58 8.58 0 012 19.54 12.1 12.1 0 008.56 21c7.87 0 12.17-6.54 12.17-12.21l-.01-.56A8.76 8.76 0 0022 5.92z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-700 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7 0h3.83v2.16h.05c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.66 4.8 6.12V24h-4v-7.52c0-1.79-.03-4.09-2.49-4.09-2.49 0-2.87 1.95-2.87 3.96V24h-4V8z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Quick Links
+    </h3>
+
+    <ul class="space-y-3">
+      <li><a href="index.html" class="hover:text-blue-500 transition">Home</a></li>
+      <li><a href="aboutus.html" class="hover:text-blue-500 transition">About Us</a></li>
+      <li><a href="services.html" class="hover:text-blue-500 transition">Services</a></li>
+      <li><a href="pricing.html" class="hover:text-blue-500 transition">Pricing</a></li>
+      <li><a href="contact.html" class="hover:text-blue-500 transition">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Resources -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Resources
+    </h3>
+
+    <ul class="space-y-3">
+     <li><a href="gallery.html" class="hover:text-blue-500 transition">Gallery</a></li>
+      <li><a href="home2.html" class="hover:text-blue-500 transition">Home2</a></li>
+
+    <li><a href="load.html" class="hover:text-blue-500 transition">Post Load</a></li>
+      <li><a href="404.html" class="hover:text-blue-500 transition">404 Page</a></li>
+      <li><a href="comingsoon.html" class="hover:text-blue-500 transition">Coming Soon</a></li>
+    </ul>
+  </div>
+
+  <!-- Newsletter -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Newsletter
+    </h3>
+
+    <p class="text-slate-400 mb-4">
+      Get freight industry updates and logistics news.
+    </p>
+
+    <form class="space-y-3">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 focus:border-blue-500 focus:outline-none text-white">
+
+      <button
+        class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all duration-300">
+        Subscribe
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<div class="border-t border-slate-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+
+  <p class="text-slate-500 text-sm text-center md:text-left">
+    © 2026 FreightFlow. All rights reserved.
+  </p>
+
+  <div class="flex gap-6 text-sm">
+    <a href="#" class="hover:text-blue-500">Privacy Policy</a>
+    <a href="#" class="hover:text-blue-500">Terms of Service</a>
+  </div>
+
+</div>
+
+
+  </div>
+
+</footer>
+
+<script>
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        
+        // Select only the navigation menu links
+        // We add ':not(.logo-link)' to ensure the logo is ignored
+        const navLinks = document.querySelectorAll('nav a:not(.logo-link)');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Exact match for the current page
+            if (href === currentPath) {
+                link.classList.add('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            } else {
+                // Optional: Ensure class is removed if it doesn't match
+                link.classList.remove('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            }
+        });
+    }
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    window.onload = setActiveNavLink;
+</script>
+       <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function toggleDir() {
+            const html = document.documentElement;
+            const newDir = html.dir === 'rtl' ? 'ltr' : 'rtl';
+            html.dir = newDir;
+            localStorage.setItem('dir', newDir);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleDashboard(event) {
+            event.stopPropagation();
+            document.getElementById('dash-dropdown').classList.toggle('hidden');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('button')) {
+                document.getElementById('dash-dropdown').classList.add('hidden');
+            }
+        }
+    </script>
+<script>
+    // Automatically set active state for Nav Links
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname.split("/").pop(); // Gets the filename
+        const navLinks = document.querySelectorAll('nav a');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Check if href matches current path (default to index.html if on root)
+            if (href === currentPath || (currentPath === "" && href === "index.html")) {
+                link.classList.add('nav-active');
+            }
+        });
+    }
+
+    // Run on page load
+    window.onload = setActiveNavLink;
+
+   
+</script>
+  
+</body>
+</html>

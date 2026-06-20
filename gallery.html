@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freight Flow| Freight Brokerage Platform</title>
+            <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-white' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2'/%3E%3C/svg%3E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind dark mode configuration
+        tailwind.config = { darkMode: 'class' };
+
+        // Initialization to prevent flash of wrong theme
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedDir = localStorage.getItem('dir') || 'ltr';
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            document.documentElement.dir = savedDir;
+        })();
+    </script>
+    <style>
+        #mobile-menu {
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-in;
+    overflow: hidden;
+}
+#mobile-menu.hidden {
+    display: none;
+    max-height: 0;
+    opacity: 0;
+}
+#mobile-menu:not(.hidden) {
+    display: block;
+    max-height: 500px; /* Sufficient for your menu height */
+    opacity: 1;
+}
+        .nav-active {
+    color: #2563eb !important; /* Tailwind text-blue-600 */
+    border-bottom: 2px solid #2563eb;
+}
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+ <nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
+       <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <a href="index.html" class="logo-link flex-shrink-0">
+        <div class="flex items-center gap-2">
+            <div class="bg-blue-600 p-1.5 rounded-lg">
+                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
+                </svg>
+            </div>
+            <!-- Slightly smaller text on mid-range screens to prevent wrapping -->
+            <div class="text-lg lg:text-xl xl:text-2xl font-bold text-slate-900 dark:text-white truncate">
+                Freight<span class="text-blue-600">Flow</span>
+            </div>
+        </div>
+    </a> 
+    
+    <!-- Mobile Menu Toggle -->
+    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
+
+    <!-- Desktop Menu: Targeted Scaling for 1024px -->
+    <div class="hidden lg:flex items-center lg:space-x-3 xl:space-x-6 font-medium text-[13px] xl:text-sm">
+        <a href="index.html" class="hover:text-blue-600 transition whitespace-nowrap">Home</a>
+        <a href="home2.html" class="hover:text-blue-600 transition whitespace-nowrap">Home2</a>
+        <a href="aboutus.html" class="hover:text-blue-600 transition whitespace-nowrap">Aboutus</a>
+        <a href="services.html" class="hover:text-blue-600 transition whitespace-nowrap">Services</a>
+        <a href="pricing.html" class="hover:text-blue-600 transition whitespace-nowrap">Pricing</a>
+        <a href="gallery.html" class="hover:text-blue-600 transition whitespace-nowrap">Gallery</a>
+        <a href="contact.html" class="hover:text-blue-600 transition whitespace-nowrap">Contact</a>
+        
+        <!-- Dashboard Dropdown -->
+        <div class="relative group">
+            <button class="flex items-center hover:text-blue-600 transition whitespace-nowrap">Dashboard▾</button>
+            <div class="hidden group-hover:block absolute top-full right-0 bg-white dark:bg-slate-800 shadow-xl p-4 mt-2 w-40 rounded border dark:border-slate-700 z-50">
+                <a href="user.html" class="block py-1 hover:text-blue-500">User Profile</a>
+            </div>
+        </div>
+
+        <!-- Toggles -->
+        <div class="flex items-center space-x-1 pl-2">
+            <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all">🌓</button>
+            <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all text-[10px] font-bold">LTR</button>
+        </div>
+
+        <!-- Auth Buttons: Padding adjusted for 1024px fit -->
+        <a href="login.html" class="border border-blue-600 px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition whitespace-nowrap">Login</a>
+        <a href="load.html" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">Get Load</a>
+    </div>
+</div>
+   
+<div id="mobile-menu" 
+     class="hidden lg:hidden absolute top-20 left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-2xl z-40 transition-all duration-300 ease-in-out px-6 py-6">
+           <a href="index.html" class="block">Home</a>
+            <a href="home2.html" class="block">Home2</a>
+            <a href="aboutus.html" class="block">Aboutus</a>
+            <a href="services.html" class="block">Services</a>
+            <a href="pricing.html" class="block">Pricing</a>
+            <a href="gallery.html" class="block">Gallery</a>
+            <a href="contact.html" class="block">contact</a>
+            <a href="user.html" class="block">Dashboard</a>
+           <div class="flex items-center gap-3 pt-2">
+    <button 
+        onclick="toggleTheme()" 
+        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
+        🌓
+    </button>
+
+    <button 
+        onclick="toggleDir()" 
+        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
+        LTR
+    </button>
+</div>
+            <hr class="dark:border-slate-700">
+      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+  <div class="flex flex-col sm:flex-row gap-3">
+
+    <a href="login.html"
+      class="w-full flex items-center justify-center px-5 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
+      Login
+    </a>
+
+    <a href="load.html"
+      class="w-full flex items-center justify-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg">
+      Post Load
+    </a>
+
+  </div>
+</div>
+        </div>
+
+    </nav>
+<!-- Added 'overflow-hidden' to prevent zooming out from breaking layout -->
+<section class="max-w-7xl mx-auto px-4 py-8 md:py-20 overflow-hidden">
+    <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        
+        <!-- Text Content -->
+        <div class="space-y-4 md:space-y-6 order-2 lg:order-1 text-center lg:text-left flex flex-col items-center lg:items-start">
+            <span class="text-indigo-600 font-bold tracking-[0.2em] uppercase text-[10px] md:text-xs">Freight Flow Logistics</span>
+            
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1] max-w-lg">
+                Freight in Motion. <br class="hidden lg:block">
+                <span class="text-indigo-600">Logistics in Action.</span>
+            </h1>
+            
+            <p class="text-sm md:text-lg text-slate-600 dark:text-slate-400 max-w-md lg:max-w-lg font-medium leading-relaxed">
+                Explore our network, fleet operations, shipment tracking, and successful deliveries across regions. Built for speed, reliability, and precision.
+            </p>
+            
+            <!-- Button Container: Forced to wrap instead of overflow -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-2 lg:pt-4 w-full sm:w-auto justify-center lg:justify-start">
+                <button class="px-6 py-3 md:px-8 md:py-4 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 transition shadow-lg w-full sm:w-auto text-sm md:text-base whitespace-nowrap">Track Shipment</button>
+                <button class="px-6 py-3 md:px-8 md:py-4 bg-white dark:bg-slate-800 border border-indigo-200 text-indigo-600 font-bold rounded-full hover:bg-indigo-50 transition w-full sm:w-auto text-sm md:text-base whitespace-nowrap">View Network</button>
+            </div>
+        </div>
+
+        <!-- Image Content -->
+        <!-- Added relative wrapper to ensure image stays contained -->
+        <div class="relative order-1 lg:order-2 px-2">
+            <div class="absolute -top-6 -right-6 w-48 h-48 md:w-72 md:h-72 bg-indigo-100 dark:bg-indigo-900/20 rounded-full blur-3xl -z-10"></div>
+            
+            <img src="assets/gallery hero" 
+                 alt="Logistics in motion" 
+                 class="relative rounded-2xl md:rounded-3xl shadow-2xl w-full object-cover h-[200px] sm:h-[300px] md:h-[500px] block">
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-16">
+    <div class="mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Our Gallery</h2>
+        <div class="flex flex-wrap gap-2 mt-6">
+            <button class="px-5 py-2 bg-indigo-600 text-white rounded-full text-sm font-semibold hover:bg-indigo-700 transition">All</button>
+            <button class="px-5 py-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-full text-sm font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">Fleet</button>
+            <button class="px-5 py-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-full text-sm font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">Warehouses</button>
+            <button class="px-5 py-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-full text-sm font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">Deliveries</button>
+            <button class="px-5 py-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-full text-sm font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">Technology</button>
+            <button class="px-5 py-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-full text-sm font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">Team</button>
+            <button class="px-5 py-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-full text-sm font-semibold hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">Events</button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="group relative overflow-hidden rounded-3xl h-80 cursor-pointer shadow-lg">
+            <img src="assets/g1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Fleet Operations</h3>
+                <p class="text-sm opacity-0 group-hover:opacity-100 transition-opacity">View long-haul trucks</p>
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-3xl h-80 cursor-pointer shadow-lg">
+            <img src="assets/g2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Warehouse</h3>
+                <p class="text-sm opacity-0 group-hover:opacity-100 transition-opacity">Distribution centers</p>
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-3xl h-80 cursor-pointer shadow-lg">
+            <img src="assets/g3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Deliveries</h3>
+                <p class="text-sm opacity-0 group-hover:opacity-100 transition-opacity">Last-mile excellence</p>
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-3xl h-80 cursor-pointer shadow-lg">
+            <img src="assets/g4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Technology</h3>
+                <p class="text-sm opacity-0 group-hover:opacity-100 transition-opacity">Real-time dashboards</p>
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-3xl h-80 cursor-pointer shadow-lg">
+            <img src="assets/g5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Our Team</h3>
+                <p class="text-sm opacity-0 group-hover:opacity-100 transition-opacity">The Freight Flow experts</p>
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-3xl h-80 cursor-pointer shadow-lg">
+            <img src="assets/g6" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-xl font-bold">Events</h3>
+                <p class="text-sm opacity-0 group-hover:opacity-100 transition-opacity">Community & culture</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="mb-12">
+        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white">Customer Success</h2>
+        <p class="text-slate-500 mt-2 font-medium">Moments that define our logistics journey.</p>
+    </div>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Gallery Card Template -->
+        <!-- Card 1: Delivery -->
+        <div class="group relative overflow-hidden rounded-3xl h-72 cursor-pointer shadow-md">
+            <img src="assets/gg1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-lg font-bold">Delivery Completion</h3>
+                <p class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">Verified handovers</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Partner Carriers -->
+        <div class="group relative overflow-hidden rounded-3xl h-72 cursor-pointer shadow-md">
+            <img src="assets/gg2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-lg font-bold">Partner Carriers</h3>
+                <p class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">Our trusted network</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Distribution -->
+        <div class="group relative overflow-hidden rounded-3xl h-72 cursor-pointer shadow-md">
+            <img src="assets/gg3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-lg font-bold">Distribution Centers</h3>
+                <p class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">Strategic hubs</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Logistics Events -->
+        <div class="group relative overflow-hidden rounded-3xl h-72 cursor-pointer shadow-md">
+            <img src="assets/gg5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-lg font-bold">Logistics Events</h3>
+                <p class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">Industry gatherings</p>
+            </div>
+        </div>
+
+        <!-- Card 5: Industry Exhibitions -->
+        <div class="group relative overflow-hidden rounded-3xl h-72 cursor-pointer shadow-md">
+            <img src="assets/gg4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-lg font-bold">Exhibitions</h3>
+                <p class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">Showing innovation</p>
+            </div>
+        </div>
+
+        <!-- Card 6: Operations Excellence -->
+        <div class="group relative overflow-hidden rounded-3xl h-72 cursor-pointer shadow-md">
+            <img src="assets/gg6" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <div class="absolute inset-0 bg-indigo-900/60 opacity-60 group-hover:opacity-40 transition-opacity"></div>
+            <div class="absolute bottom-6 left-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                <h3 class="text-lg font-bold">Operations Support</h3>
+                <p class="text-xs opacity-0 group-hover:opacity-100 transition-opacity">Expert teams in action</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<section class="max-w-7xl mx-auto px-6 py-20">
+    <div class="bg-indigo-600 rounded-[2rem] p-8 md:p-16 text-center shadow-2xl shadow-indigo-600/30">
+        
+        <!-- Heading -->
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Ready to Join Our <br class="hidden md:block"> Logistics Network?
+        </h2>
+        
+        <!-- Subheading -->
+        <p class="text-indigo-100 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10">
+            Connect with trusted carriers, streamline operations, and move freight smarter with VEXA TECH.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="signup.html">
+                 <button class="px-8 py-4 bg-white text-indigo-600 font-bold rounded-full hover:bg-indigo-50 transition shadow-lg">
+                Get Started
+            </button>
+            </a>
+           <a href="contact.html">
+            <button class="px-8 py-4 bg-indigo-700/50 text-white font-bold rounded-full hover:bg-indigo-700 transition border border-indigo-500">
+                Request Demo
+            </button>
+           </a>
+            
+        </div>
+
+    </div>
+</section>
+
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-300">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+  <!-- Brand -->
+  <div>
+    <a href="index.html">
+           <div class="flex items-center gap-3 mb-5">
+
+      <div class="bg-blue-600 p-2 rounded-xl shadow-lg">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2"/>
+        </svg>
+      </div>
+
+      <h2 class="text-2xl font-bold text-white">
+        Freight<span class="text-blue-500">Flow</span>
+      </h2>
+
+    </div>
+    </a>
+ 
+
+    <p class="text-slate-400 leading-relaxed">
+      Smart freight brokerage and load matching platform helping carriers,
+      shippers and brokers connect faster.
+    </p>
+
+    <div class="flex gap-4 mt-6">
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-600 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5c0-2.5 1.5-4 4-4 1.2 0 2.5.2 2.5.2V8h-1.4c-1.2 0-1.5.8-1.5 1.6V12h3l-.5 3h-2.5v6.8c4.56-.93 8-4.96 8-9.8z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-sky-500 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M22 5.92c-.77.35-1.6.58-2.47.68a4.3 4.3 0 001.89-2.37 8.56 8.56 0 01-2.72 1.04A4.28 4.28 0 0015.5 4c-2.38 0-4.31 1.94-4.31 4.33 0 .34.04.67.11.98A12.15 12.15 0 013 4.89a4.34 4.34 0 001.33 5.79 4.24 4.24 0 01-1.95-.54v.05c0 2.1 1.48 3.86 3.46 4.26a4.28 4.28 0 01-1.94.07c.55 1.71 2.12 2.95 4 2.98A8.58 8.58 0 012 19.54 12.1 12.1 0 008.56 21c7.87 0 12.17-6.54 12.17-12.21l-.01-.56A8.76 8.76 0 0022 5.92z"/>
+        </svg>
+      </a>
+
+      <a href="#" class="w-10 h-10 rounded-lg bg-slate-800 hover:bg-blue-700 flex items-center justify-center transition-all duration-300">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7 0h3.83v2.16h.05c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.66 4.8 6.12V24h-4v-7.52c0-1.79-.03-4.09-2.49-4.09-2.49 0-2.87 1.95-2.87 3.96V24h-4V8z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Quick Links
+    </h3>
+
+    <ul class="space-y-3">
+      <li><a href="index.html" class="hover:text-blue-500 transition">Home</a></li>
+      <li><a href="aboutus.html" class="hover:text-blue-500 transition">About Us</a></li>
+      <li><a href="services.html" class="hover:text-blue-500 transition">Services</a></li>
+      <li><a href="pricing.html" class="hover:text-blue-500 transition">Pricing</a></li>
+      <li><a href="contact.html" class="hover:text-blue-500 transition">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Resources -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Resources
+    </h3>
+
+    <ul class="space-y-3">
+     <li><a href="gallery.html" class="hover:text-blue-500 transition">Gallery</a></li>
+      <li><a href="home2.html" class="hover:text-blue-500 transition">Home2</a></li>
+
+    <li><a href="load.html" class="hover:text-blue-500 transition">Post Load</a></li>
+      <li><a href="404.html" class="hover:text-blue-500 transition">404 Page</a></li>
+      <li><a href="comingsoon.html" class="hover:text-blue-500 transition">Coming Soon</a></li>
+    </ul>
+  </div>
+
+  <!-- Newsletter -->
+  <div>
+    <h3 class="text-white font-semibold text-lg mb-5">
+      Newsletter
+    </h3>
+
+    <p class="text-slate-400 mb-4">
+      Get freight industry updates and logistics news.
+    </p>
+
+    <form class="space-y-3">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 focus:border-blue-500 focus:outline-none text-white">
+
+      <button
+        class="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all duration-300">
+        Subscribe
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<div class="border-t border-slate-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+
+  <p class="text-slate-500 text-sm text-center md:text-left">
+    © 2026 FreightFlow. All rights reserved.
+  </p>
+
+  <div class="flex gap-6 text-sm">
+    <a href="#" class="hover:text-blue-500">Privacy Policy</a>
+    <a href="#" class="hover:text-blue-500">Terms of Service</a>
+  </div>
+
+</div>
+
+
+  </div>
+
+</footer>
+
+<script>
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+        
+        // Select only the navigation menu links
+        // We add ':not(.logo-link)' to ensure the logo is ignored
+        const navLinks = document.querySelectorAll('nav a:not(.logo-link)');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            
+            // Exact match for the current page
+            if (href === currentPath) {
+                link.classList.add('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            } else {
+                // Optional: Ensure class is removed if it doesn't match
+                link.classList.remove('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
+            }
+        });
+    }
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    window.onload = setActiveNavLink;
+</script>
+       <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function toggleDir() {
+            const html = document.documentElement;
+            const newDir = html.dir === 'rtl' ? 'ltr' : 'rtl';
+            html.dir = newDir;
+            localStorage.setItem('dir', newDir);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleDashboard(event) {
+            event.stopPropagation();
+            document.getElementById('dash-dropdown').classList.toggle('hidden');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('button')) {
+                document.getElementById('dash-dropdown').classList.add('hidden');
+            }
+        }
+    </script>
+<script>
+    // Automatically set active state for Nav Links
+    function setActiveNavLink() {
+        const currentPath = window.location.pathname.split("/").pop(); // Gets the filename
+        const navLinks = document.querySelectorAll('nav a');
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            // Check if href matches current path (default to index.html if on root)
+            if (href === currentPath || (currentPath === "" && href === "index.html")) {
+                link.classList.add('nav-active');
+            }
+        });
+    }
+
+    // Run on page load
+    window.onload = setActiveNavLink;
+
+   
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Freight Flow| Freight Brokerage Platform</title>
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-white' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2'/%3E%3C/svg%3E">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+        // Persistent state initialization
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedDir = localStorage.getItem('dir') || 'ltr';
+            if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+            document.documentElement.dir = savedDir;
+        })();
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300 font-sans antialiased">
+
+    <nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800 py-4 px-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <div class="bg-blue-600 p-1.5 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
+                    </svg>
+                </div>
+                <span class="text-xl md:text-2xl font-bold">Freight<span class="text-blue-600">Flow</span></span>
+            </a>
+            <div class="flex gap-2 md:gap-3">
+                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-slate-700 transition">🌙</button>
+                <button onclick="toggleDirection()" class="p-2 px-3 md:px-4 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-slate-700 transition font-bold text-xs md:text-sm">LTR/RTL</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
+        <div class="text-center w-full max-w-lg bg-white dark:bg-slate-900 p-8 md:p-12 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-800">
+            
+            <div class="mb-8">
+                <div class="w-20 h-20 bg-blue-50 dark:bg-blue-900/30 text-blue-600 flex items-center justify-center rounded-3xl mx-auto mb-6">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold mb-4">Coming Soon</h1>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 max-w-xs mx-auto">
+                    We are working hard on something amazing. Stay tuned for the launch of FreightFlow!
+                </p>
+            </div>
+
+            <form class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+                <input type="email" placeholder="Enter your email" class="w-full p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-600 outline-none">
+                <button class="px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all hover:scale-[1.01] whitespace-nowrap">
+                    Notify Me
+                </button>
+            </form>
+
+            <div class="mt-10 flex justify-center gap-6 text-slate-400">
+                <a href="#" class="hover:text-blue-600 transition">Twitter</a>
+                <a href="#" class="hover:text-blue-600 transition">LinkedIn</a>
+                <a href="#" class="hover:text-blue-600 transition">Contact</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const toggleTheme = () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        };
+        const toggleDirection = () => {
+            const isRtl = document.documentElement.dir === 'rtl';
+            document.documentElement.dir = isRtl ? 'ltr' : 'rtl';
+            localStorage.setItem('dir', document.documentElement.dir);
+        };
+    </script>
+</body>
+</html>
