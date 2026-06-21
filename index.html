@@ -20,156 +20,195 @@
         })();
     </script>
     <style>
-        #mobile-menu {
-    transition: max-height 0.3s ease-out, opacity 0.3s ease-in;
-    overflow: hidden;
-}
-#mobile-menu.hidden {
-    display: none;
-    max-height: 0;
-    opacity: 0;
-}
-#mobile-menu:not(.hidden) {
-    display: block;
-    max-height: 500px; /* Sufficient for your menu height */
-    opacity: 1;
-}
-        .nav-active {
-    color: #2563eb !important; /* Tailwind text-blue-600 */
-    border-bottom: 2px solid #2563eb;
-}
+
+
+ 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
 
- <nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
-       <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-    
-    <!-- Logo -->
-  <a href="index.html" 
-   class="flex items-center gap-2 focus:outline-none active:bg-transparent select-none" class="logo">
-    
-    <div class="bg-blue-600 p-1.5 rounded-lg">
-        <svg class="w-5 h-5 md:w-6 md:h-6 text-white"
-             fill="none"
-             stroke="currentColor"
-             viewBox="0 0 24 24">
-            <path stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
-        </svg>
-    </div>
-
-    <div class="text-lg lg:text-xl xl:text-2xl font-bold text-slate-900 dark:text-white">
-        Freight<span class="text-blue-600">Flow</span>
-    </div>
-
-</a>
-    
-    <!-- Mobile Menu Toggle -->
-    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
-
-    <!-- Desktop Menu: Targeted Scaling for 1024px -->
-    <div class="hidden lg:flex items-center lg:space-x-3 xl:space-x-6 font-medium text-[13px] xl:text-sm">
-        <a href="index.html" class="hover:text-blue-600 transition whitespace-nowrap">Home</a>
-        <a href="home2.html" class="hover:text-blue-600 transition whitespace-nowrap">Home2</a>
-        <a href="aboutus.html" class="hover:text-blue-600 transition whitespace-nowrap">Aboutus</a>
-        <a href="services.html" class="hover:text-blue-600 transition whitespace-nowrap">Services</a>
-        <a href="pricing.html" class="hover:text-blue-600 transition whitespace-nowrap">Pricing</a>
-        <a href="gallery.html" class="hover:text-blue-600 transition whitespace-nowrap">Gallery</a>
-        <a href="contact.html" class="hover:text-blue-600 transition whitespace-nowrap">Contact</a>
+<nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
         
-        <!-- Dashboard Dropdown -->
-        <div class="relative group">
-            <button class="flex items-center hover:text-blue-600 transition whitespace-nowrap">Dashboard▾</button>
-            <div class="hidden group-hover:block absolute top-full right-0 bg-white dark:bg-slate-800 shadow-xl p-4 mt-2 w-40 rounded border dark:border-slate-700 z-50">
-                <a href="user.html" class="block py-1 hover:text-blue-500">User Profile</a>
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 select-none">
+            <div class="bg-blue-600 p-1.5 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
+                </svg>
+            </div>
+            <span class="text-xl font-bold text-slate-900 dark:text-white">Freight<span class="text-blue-600">Flow</span></span>
+        </a>
+    
+        <!-- Desktop Menu: Improved scaling for 1024px -->
+        <div class="hidden lg:flex items-center gap-4 xl:gap-6 font-medium text-[13px] xl:text-sm">
+            <a href="index.html" class="nav-link hover:text-blue-600 transition">Home</a>
+            <a href="home2.html" class="nav-link hover:text-blue-600 transition">Home2</a>
+            <a href="aboutus.html" class="nav-link hover:text-blue-600 transition">About</a>
+            <a href="services.html" class="nav-link hover:text-blue-600 transition">Services</a>
+            <a href="gallery.html" class="nav-link hover:text-blue-600 transition">Gallery</a>
+            <a href="pricing.html" class="nav-link hover:text-blue-600 transition">Pricing</a>
+            <a href="contact.html" class="nav-link hover:text-blue-600 transition">Contact</a>
+            
+            <!-- Dashboard Dropdown -->
+            <div class="relative group">
+                <button class="hover:text-blue-600 transition">Dashboard ▾</button>
+                <div class="absolute right-0 top-full pt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+                    <div class="bg-white dark:bg-slate-800 shadow-xl p-3 w-40 rounded-lg border dark:border-slate-700">
+                        <a href="user.html" class="block py-1 hover:text-blue-500">Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 pl-2 border-l dark:border-slate-700">
+                <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">🌓</button>
+                <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-[10px] font-bold">LTR</button>
+            </div>
+
+            <a href="login.html" class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition">Login</a>
+            <a href="load.html" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">Get Load</a>
+        </div>
+
+        <!-- Mobile Toggle -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
+    </div>
+
+    <!-- Mobile Menu -->
+<div id="mobile-menu"
+     class="hidden lg:hidden absolute top-20 left-0 right-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-2xl z-40 px-4 py-6 box-border">
+    
+    <div class="space-y-1">
+        <a href="index.html" class="nav-link block py-3 font-medium">Home</a>
+        <a href="home2.html" class="nav-link block py-3 font-medium">Home2</a>
+        <a href="aboutus.html" class="nav-link block py-3 font-medium">About us</a>
+        <a href="services.html" class="nav-link block py-3 font-medium">Services</a>
+        <a href="gallery.html" class="nav-link block py-3 font-medium">Gallery</a>
+        <a href="pricing.html" class="nav-link block py-3 font-medium">Pricing</a>
+        <a href="contact.html" class="nav-link block py-3 font-medium">Contact</a>
+    </div>
+
+    <div class="flex gap-3 pt-4">
+        <button onclick="toggleTheme()" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-semibold">Theme</button>
+        <button onclick="toggleDir()" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-semibold">Direction</button>
+    </div>
+
+   <div class="flex flex-col gap-3 pt-6 border-t border-slate-200 dark:border-slate-800 w-full">
+        <a href="login.html" class="block w-full text-center py-3.5 border border-slate-200 dark:border-slate-700 rounded-xl font-semibold text-sm box-border">
+            Login
+        </a>
+        <a href="load.html" class="block w-full text-center py-3.5 bg-blue-600 text-white rounded-xl font-semibold text-sm box-border">
+            Post Load
+        </a>
+    </div>
+</div>
+<script>
+    // Automatically set active state based on current URL
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPath = window.location.pathname.split("/").pop();
+        const links = document.querySelectorAll('.nav-link');
+        
+        links.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('nav-active');
+            }
+        });
+    });
+
+    // Ensure menu toggling works for all mobile/tablet sizes
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+</script>
+    <style>
+        /* Active link styling */
+.nav-active {
+    color: #2563eb !important; /* blue-600 */
+    font-weight: 700;
+    border-left: 4px solid #2563eb;
+    padding-left: 1rem !important;
+}
+    </style>
+</nav>
+<style>
+    .nav-active {
+    color: #2563eb; /* blue-600 */
+    font-weight: 700;
+    border-bottom: 2px solid #2563eb;
+}
+</style>
+<script>
+    const currentPath = window.location.pathname.split("/").pop();
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if(link.getAttribute('href') === currentPath) {
+            link.classList.add('nav-active');
+        }
+    });
+
+    function toggleMobileMenu() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+</script>
+<section class="w-full max-w-7xl mx-auto px-4 py-16 lg:py-24 overflow-hidden">
+    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        
+        <!-- Left Content -->
+        <div class="flex-1 w-full space-y-8 text-center lg:text-left">
+            <div class="space-y-4">
+                <!-- Badge: font-semibold (600) -->
+                <span class="inline-block py-1 px-3 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-widest">
+                    #1 Freight Marketplace
+                </span>
+                
+                <!-- Headline: font-semibold (600) -->
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-semibold leading-[1.1] text-slate-900 dark:text-white">
+                    Connect Loads with Reliable Carriers <span class="text-blue-600">Faster Than Ever</span>
+                </h1>
+                
+                <!-- Subhead: font-normal (400) -->
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-normal max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    A smart freight marketplace that helps shippers post loads, carriers find profitable routes, and brokers manage operations seamlessly. Join 10,000+ logistics professionals.
+                </p>
+            </div>
+            
+            <!-- CTAs: font-medium (500) -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="load.html" class="px-8 py-4 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition shadow-lg shadow-blue-600/20 text-center w-full sm:w-auto">
+                    Post a Load
+                </a>
+                <a href="signup.html" class="px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition text-center w-full sm:w-auto">
+                    Find Loads
+                </a>
+            </div>
+
+            <!-- Stats: font-semibold (600) for numbers, font-medium (500) for labels -->
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-200 dark:border-slate-800">
+                <div>
+                    <h4 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white">50k+</h4>
+                    <p class="text-[9px] md:text-[10px] uppercase text-slate-500 font-medium tracking-wider">Active Loads</p>
+                </div>
+                <div>
+                    <h4 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white">12k+</h4>
+                    <p class="text-[9px] md:text-[10px] uppercase text-slate-500 font-medium tracking-wider">Carriers</p>
+                </div>
+                <div>
+                    <h4 class="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white">24/7</h4>
+                    <p class="text-[9px] md:text-[10px] uppercase text-slate-500 font-medium tracking-wider">Support</p>
+                </div>
             </div>
         </div>
 
-        <!-- Toggles -->
-        <div class="flex items-center space-x-1 pl-2">
-            <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all">🌓</button>
-            <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all text-[10px] font-bold">LTR</button>
-        </div>
-
-        <!-- Auth Buttons: Padding adjusted for 1024px fit -->
-        <a href="login.html" class="border border-blue-600 px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition whitespace-nowrap">Login</a>
-        <a href="load.html" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">Get Load</a>
-    </div>
-</div>
-   
-<div id="mobile-menu" 
-     class="hidden lg:hidden absolute top-20 left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-2xl z-40 transition-all duration-300 ease-in-out px-6 py-6">
-           <a href="index.html" class="block">Home</a>
-            <a href="home2.html" class="block">Home2</a>
-            <a href="aboutus.html" class="block">Aboutus</a>
-            <a href="services.html" class="block">Services</a>
-            <a href="pricing.html" class="block">Pricing</a>
-            <a href="gallery.html" class="block">Gallery</a>
-            <a href="contact.html" class="block">contact</a>
-            <a href="user.html" class="block">Dashboard</a>
-           <div class="flex items-center gap-3 pt-2">
-    <button 
-        onclick="toggleTheme()" 
-        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
-        🌓
-    </button>
-
-    <button 
-        onclick="toggleDir()" 
-        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
-        LTR
-    </button>
-</div>
-            <hr class="dark:border-slate-700">
-      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
-  <div class="flex flex-col sm:flex-row gap-3">
-
-    <a href="login.html"
-      class="w-full flex items-center justify-center px-5 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
-      Login
-    </a>
-
-    <a href="load.html"
-      class="w-full flex items-center justify-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg">
-      Post Load
-    </a>
-
-  </div>
-</div>
-        </div>
-
-    </nav>
-    <section class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col lg:flex-row items-center gap-12">
-    
-    <div class="flex-1 space-y-6 text-center lg:text-left">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white">
-            Connect Loads with Reliable Carriers  <span class="text-blue-600">Faster Than Ever</span>
-        </h1>
-        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 font-normal max-w-2xl mx-auto lg:mx-0">
-            A smart freight marketplace that helps shippers post loads, carriers find profitable routes, and brokers manage operations seamlessly.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="load.html" class="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-blue-500/30 text-center">
-                Post a Load
-            </a>
-            <a href="signup.html" class="px-8 py-4 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition text-center">
-                Find Loads
-            </a>
-        </div>
-    </div>
-
-    <div class="flex-1 w-full max-w-lg lg:max-w-none">
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-            <img src="assets/index hero" 
-                 alt="Freight Logistics" 
-                 class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-500">
-            <div class="absolute inset-0 bg-blue-900/10 dark:bg-blue-900/20"></div>
+        <!-- Right Content -->
+        <div class="flex-1 w-full relative max-w-lg lg:max-w-none">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl z-10">
+                <img src="assets/index hero" 
+                     alt="Freight Logistics" 
+                     class="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-blue-600/10 dark:bg-blue-900/20"></div>
+            </div>
+            <div class="absolute -top-10 -right-10 w-48 h-48 md:w-72 md:h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         </div>
     </div>
 </section>
@@ -233,64 +272,52 @@
 
     observer.observe(container);
 </script>
-<section class="w-full py-24 px-4 bg-white dark:bg-slate-950 transition-colors duration-500">
-    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+<section class="w-full py-20 px-4 bg-white dark:bg-slate-950 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         
-        <!-- Left Side: Interactive Steps -->
-        <div class="space-y-12">
-            <div class="mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">How It Works</h2>
-                <p class="text-lg text-slate-600 dark:text-slate-400 font-normal">Three simple steps to move your freight with total efficiency.</p>
+        <div class="space-y-10">
+            <div class="space-y-4">
+                <span class="text-blue-600 dark:text-blue-400 font-bold text-xs uppercase tracking-widest">Efficiency Redefined</span>
+                <h2 class="text-4xl md:text-6xl font-semibold text-slate-900 dark:text-white leading-tight">Three simple steps to <br class="hidden md:block"> move freight.</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">Join thousands of shippers who have optimized their logistics workflow with our intelligent platform.</p>
             </div>
 
-            <!-- Step 1 -->
-            <div class="group cursor-pointer">
-                <div class="flex items-start gap-6">
-                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white shadow-sm">01</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Post Your Load</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Enter your pickup location, delivery destination, and freight details into our secure portal.</p>
+            <div class="relative space-y-10">
+                <div class="absolute left-7 top-14 bottom-10 w-0.5 bg-slate-200 dark:bg-slate-800"></div>
+
+                <div class="group relative flex gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 flex items-center justify-center text-xl font-bold text-blue-600 z-10 transition-all duration-300 group-hover:border-blue-600 shadow-sm">01</div>
+                    <div class="pt-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Post Your Load</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Enter pickup, destination, and freight details. Our smart forms auto-populate recurring data to save time.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Step 2 -->
-            <div class="group cursor-pointer">
-                <div class="flex items-start gap-6">
-                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white shadow-sm">02</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Match With Carriers</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Our AI engine instantly matches your requirement with the best-rated carriers in our network.</p>
+                <div class="group relative flex gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 flex items-center justify-center text-xl font-bold text-blue-600 z-10 transition-all duration-300 group-hover:border-blue-600 shadow-sm">02</div>
+                    <div class="pt-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Carrier Matching</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Our AI engine instantly matches your freight with verified, high-performance carriers based on proximity and historical data.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Step 3 -->
-            <div class="group cursor-pointer">
-                <div class="flex items-start gap-6">
-                    <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-xl font-bold text-blue-600 transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white shadow-sm">03</div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Track Delivery</h3>
-                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Enjoy full visibility with real-time tracking, automated updates, and digital proof-of-delivery.</p>
+                <div class="group relative flex gap-6">
+                    <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 flex items-center justify-center text-xl font-bold text-blue-600 z-10 transition-all duration-300 group-hover:border-blue-600 shadow-sm">03</div>
+                    <div class="pt-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Track & Manage</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm">Enjoy full visibility with live GPS tracking, automated ETA updates, and instant digital proof-of-delivery.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side: Image visible on ALL layouts -->
         <div class="relative w-full">
-            <div class="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform duration-700 hover:scale-[1.02]">
-                <!-- Ensure the src is a valid link or local path -->
-                <img src="assets/Logistics Process" alt="Logistics Process" class="w-full h-full object-cover">
-                
-                <!-- Overlay Gradient -->
-                <div class="absolute inset-0 bg-blue-600/20"></div>
-                
-                <!-- Floating Card -->
-                <div class="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-5 md:p-6 rounded-2xl border border-white/20 shadow-xl">
-                    <p class="text-slate-900 dark:text-white font-semibold italic text-sm md:text-base">"The most efficient way to manage our national freight network."</p>
-                </div>
+            <div class="relative rounded-[2rem] overflow-hidden shadow-2xl">
+                <img src="assets/Logistics Process" alt="Logistics Process" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/30 to-transparent"></div>
             </div>
+            
+            
         </div>
     </div>
 </section>
@@ -300,7 +327,7 @@
         
         <!-- Section Header -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Platform For Everyone</h2>
+            <h2 class="text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white mb-6 tracking-tight">Platform For Everyone</h2>
             <p class="text-slate-600 dark:text-slate-400 font-normal max-w-2xl mx-auto text-lg">Tailored solutions to power your specific role in the logistics ecosystem.</p>
         </div>
 
@@ -353,7 +380,7 @@
     <div class="max-w-6xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">Why Choose Us</h2>
+            <h2 class="text-4xl md:text-5xl font-semibold text-slate-900 dark:text-white mb-6">Why Choose Us</h2>
             <p class="text-slate-600 dark:text-slate-400 font-normal">Superior technology for a modern logistics experience.</p>
         </div>
 
@@ -443,18 +470,22 @@
     </div>
 </section>
 <!-- Features Section -->
-<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 md:px-8">
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-24 px-4 md:px-8 transition-colors duration-500">
     <div class="max-w-7xl mx-auto">
         
         <!-- Header -->
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">Platform Services</h2>
+        <div class="text-center mb-20">
+            <span class="text-blue-600 dark:text-blue-400 font-bold tracking-[0.2em] uppercase text-xs">Our Solutions</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mt-4">Platform Services</h2>
+            <p class="text-slate-600 dark:text-slate-400 mt-6 max-w-2xl mx-auto text-lg">
+                Comprehensive tools designed to streamline your supply chain, reduce overhead, and increase operational transparency.
+            </p>
         </div>
 
         <!-- Grid: 1 col (mobile), 2 cols (tablet), 3 cols (desktop) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <!-- Card 1: Smart Load Matching -->
+            <!-- 1. Smart Load Matching -->
             <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
                 <div class="relative h-56 overflow-hidden">
                     <img src="assets/p1" alt="Smart Load Matching" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -462,11 +493,11 @@
                 </div>
                 <div class="p-8">
                     <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Smart Load Matching</h3>
-                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">AI-powered matching between loads and carriers.</p>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Our AI-driven engine instantly connects your freight requirements with the most suitable, high-performance carriers based on proximity and route history.</p>
                 </div>
             </div>
 
-            <!-- Card 2: Live Tracking -->
+            <!-- 2. Live Tracking -->
             <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
                 <div class="relative h-56 overflow-hidden">
                     <img src="assets/p2" alt="Live Tracking" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -474,11 +505,11 @@
                 </div>
                 <div class="p-8">
                     <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Live Tracking</h3>
-                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">GPS-based shipment visibility loads and carriers.</p>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Experience total supply chain transparency with real-time GPS visibility, ensuring you know exactly where your freight is at every milestone.</p>
                 </div>
             </div>
 
-            <!-- Card 3: Rate Management -->
+            <!-- 3. Rate Management -->
             <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
                 <div class="relative h-56 overflow-hidden">
                     <img src="assets/p3" alt="Rate Management" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -486,11 +517,11 @@
                 </div>
                 <div class="p-8">
                     <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Rate Management</h3>
-                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Compare rates and negotiate freight pricing.</p>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Benchmark and compare market rates effortlessly, enabling data-driven negotiations and optimal cost-efficiency for every lane every milestone.</p>
                 </div>
             </div>
 
-            <!-- Card 4: Digital Documentation -->
+            <!-- 4. Digital Documentation -->
             <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
                 <div class="relative h-56 overflow-hidden">
                     <img src="assets/p4" alt="Digital Documentation" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -498,11 +529,11 @@
                 </div>
                 <div class="p-8">
                     <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Digital Documentation</h3>
-                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Upload BOL, invoices, and proof of delivery.</p>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Eliminate paper trails with centralized digital storage for all your Bills of Lading, invoices, and signed delivery confirmations.</p>
                 </div>
             </div>
 
-            <!-- Card 5: Instant Notifications -->
+            <!-- 5. Instant Notifications -->
             <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
                 <div class="relative h-56 overflow-hidden">
                     <img src="assets/p5" alt="Instant Notifications" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -510,11 +541,11 @@
                 </div>
                 <div class="p-8">
                     <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Instant Notifications</h3>
-                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Get updates on load status and carrier availability.</p>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Stay ahead with automated, real-time alerts regarding load status updates, carrier delays, and critical shipment milestones.</p>
                 </div>
             </div>
 
-            <!-- Card 6: Analytics Dashboard -->
+            <!-- 6. Analytics Dashboard -->
             <div class="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2 cursor-pointer">
                 <div class="relative h-56 overflow-hidden">
                     <img src="assets/p6" alt="Analytics Dashboard" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
@@ -522,7 +553,7 @@
                 </div>
                 <div class="p-8">
                     <h3 class="text-xl font-semibold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Analytics Dashboard</h3>
-                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Track revenue, loads, and carrier performance.</p>
+                    <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm">Unlock actionable logistics intelligence with deep-dive reporting on revenue trends, fleet performance, and operational.</p>
                 </div>
             </div>
             
@@ -698,51 +729,53 @@
             <p class="text-slate-600 dark:text-slate-400 font-normal text-base md:text-lg max-w-xl mx-auto">See how businesses are scaling and optimizing with our logistics platform.</p>
         </div>
 
-        <!-- Responsive Testimonial Grid -->
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+<!-- Grid container: 1 column mobile, 2 columns tablet, 3 columns desktop -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
     
-    <div class="group p-6 md:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:shadow-2xl dark:hover:shadow-blue-500/10">
+    <!-- Alex Rivers Card -->
+    <div class="group p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-500 hover:border-indigo-500 hover:-translate-y-2 hover:shadow-2xl">
         <div class="flex items-center gap-4 mb-6">
-            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800">
+            <div class="w-14 h-14 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800 shrink-0">
                 <img src="assets/t1" alt="User" class="w-full h-full object-cover">
             </div>
             <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-base md:text-lg">Alex Rivers</h4>
-                <p class="text-xs md:text-sm text-blue-600 dark:text-blue-400 font-medium">Logistics Manager</p>
+                <h4 class="font-bold text-slate-900 dark:text-white text-base">Alex Rivers</h4>
+                <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium uppercase tracking-wide">Logistics Manager</p>
             </div>
         </div>
         <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm italic">"The platform's automated matching has reduced our empty miles by 30% in just three months. Truly a game changer."</p>
     </div>
 
-    <div class="group p-6 md:p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:shadow-2xl dark:hover:shadow-blue-500/10">
+    <!-- Sarah Chen Card -->
+    <div class="group p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-500 hover:border-indigo-500 hover:-translate-y-2 hover:shadow-2xl">
         <div class="flex items-center gap-4 mb-6">
-            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800">
+            <div class="w-14 h-14 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800 shrink-0">
                 <img src="assets/t2" alt="User" class="w-full h-full object-cover">
             </div>
             <div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-base md:text-lg">Sarah Chen</h4>
-                <p class="text-xs md:text-sm text-blue-600 dark:text-blue-400 font-medium">Freight Broker</p>
+                <h4 class="font-bold text-slate-900 dark:text-white text-base">Sarah Chen</h4>
+                <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium uppercase tracking-wide">Freight Broker</p>
             </div>
         </div>
         <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm italic">"Real-time visibility used to be a dream. Now, it's our standard operating procedure. Excellent UI!"</p>
     </div>
 
-    <div class="md:col-span-2 group p-8 md:p-10 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer hover:-translate-y-2 hover:shadow-2xl dark:hover:shadow-blue-500/10 flex flex-col md:flex-row items-center gap-8">
-        <div class="flex items-center gap-4 shrink-0">
-            <div class="w-20 h-20 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800">
+    <!-- Marcus Thorne Card (Rectangle on 768px+) -->
+    <div class="md:col-span-2 lg:col-span-1 group p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all duration-500 hover:border-indigo-500 hover:-translate-y-2 hover:shadow-2xl">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 rounded-full bg-slate-200 overflow-hidden border-2 border-slate-100 dark:border-slate-800 shrink-0">
                 <img src="assets/t3" alt="User" class="w-full h-full object-cover">
             </div>
-            <div class="text-left">
-                <h4 class="font-bold text-slate-900 dark:text-white text-lg">Marcus Thorne</h4>
-                <p class="text-sm text-blue-600 dark:text-blue-400 font-medium">Fleet Owner</p>
+            <div>
+                <h4 class="font-bold text-slate-900 dark:text-white text-base">Marcus Thorne</h4>
+                <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium uppercase tracking-wide">Fleet Owner</p>
             </div>
         </div>
-        <div class="border-l-0 md:border-l border-slate-200 dark:border-slate-800 pl-0 md:pl-8 italic text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-base">
-            "The support team is incredible, and the digital documentation feature has saved us hundreds of man-hours. It transformed our entire workflow, allowing us to focus on growth instead of paperwork."
-        </div>
+        <p class="text-slate-600 dark:text-slate-400 font-normal leading-relaxed text-sm italic">"The support team is incredible, and the digital documentation feature has saved us hundreds of man-hours."</p>
     </div>
 
 </div>
+
     </div>
 </section>
 <section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4 transition-colors duration-500">
@@ -972,34 +1005,6 @@
 
 </footer>
 
-<script>
-    function setActiveNavLink() {
-        const currentPath = window.location.pathname.split("/").pop() || "index.html";
-        
-        // Select only the navigation menu links
-        // We add ':not(.logo-link)' to ensure the logo is ignored
-        const navLinks = document.querySelectorAll('nav a:not(.logo-link)');
-
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            
-            // Exact match for the current page
-            if (href === currentPath) {
-                link.classList.add('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
-            } else {
-                // Optional: Ensure class is removed if it doesn't match
-                link.classList.remove('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
-            }
-        });
-    }
-
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
-    }
-
-    window.onload = setActiveNavLink;
-</script>
        <script>
         function toggleTheme() {
             const html = document.documentElement;
@@ -1029,26 +1034,7 @@
             }
         }
     </script>
-<script>
-    // Automatically set active state for Nav Links
-    function setActiveNavLink() {
-        const currentPath = window.location.pathname.split("/").pop(); // Gets the filename
-        const navLinks = document.querySelectorAll('nav a');
 
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            // Check if href matches current path (default to index.html if on root)
-            if (href === currentPath || (currentPath === "" && href === "index.html")) {
-                link.classList.add('nav-active');
-            }
-        });
-    }
-
-    // Run on page load
-    window.onload = setActiveNavLink;
-
-   
-</script>
   
 </body>
 </html>

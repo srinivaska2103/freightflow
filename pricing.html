@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freight Flow| Freight Brokerage Platform</title>
-            <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-white' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2'/%3E%3C/svg%3E">
+     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 text-white' fill='none' viewBox='0 0 24 24' stroke='black'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2'/%3E%3C/svg%3E">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,123 +20,137 @@
         })();
     </script>
     <style>
-        #mobile-menu {
-    transition: max-height 0.3s ease-out, opacity 0.3s ease-in;
-    overflow: hidden;
-}
-#mobile-menu.hidden {
-    display: none;
-    max-height: 0;
-    opacity: 0;
-}
-#mobile-menu:not(.hidden) {
-    display: block;
-    max-height: 500px; /* Sufficient for your menu height */
-    opacity: 1;
-}
-        .nav-active {
-    color: #2563eb !important; /* Tailwind text-blue-600 */
-    border-bottom: 2px solid #2563eb;
-}
+
+
+ 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
         body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
 
- <nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
-       <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-    
-    <!-- Logo -->
-    <a href="index.html" class="logo-link flex-shrink-0">
-        <div class="flex items-center gap-2">
+<nav class="bg-white dark:bg-slate-900 shadow-md sticky top-0 z-50 border-b dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+        
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 select-none">
             <div class="bg-blue-600 p-1.5 rounded-lg">
-                <svg class="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h3v3h-3m-6 0h3v3H8m-2 0h12a1 1 0 001-1v-4a1 1 0 00-1-1H6a1 1 0 00-1 1v4a1 1 0 001 1zM5 10l2-2h10l2 2" />
                 </svg>
             </div>
-            <!-- Slightly smaller text on mid-range screens to prevent wrapping -->
-            <div class="text-lg lg:text-xl xl:text-2xl font-bold text-slate-900 dark:text-white truncate">
-                Freight<span class="text-blue-600">Flow</span>
-            </div>
-        </div>
-    </a> 
+            <span class="text-xl font-bold text-slate-900 dark:text-white">Freight<span class="text-blue-600">Flow</span></span>
+        </a>
     
-    <!-- Mobile Menu Toggle -->
-    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
-
-    <!-- Desktop Menu: Targeted Scaling for 1024px -->
-    <div class="hidden lg:flex items-center lg:space-x-3 xl:space-x-6 font-medium text-[13px] xl:text-sm">
-        <a href="index.html" class="hover:text-blue-600 transition whitespace-nowrap">Home</a>
-        <a href="home2.html" class="hover:text-blue-600 transition whitespace-nowrap">Home2</a>
-        <a href="aboutus.html" class="hover:text-blue-600 transition whitespace-nowrap">Aboutus</a>
-        <a href="services.html" class="hover:text-blue-600 transition whitespace-nowrap">Services</a>
-        <a href="pricing.html" class="hover:text-blue-600 transition whitespace-nowrap">Pricing</a>
-        <a href="gallery.html" class="hover:text-blue-600 transition whitespace-nowrap">Gallery</a>
-        <a href="contact.html" class="hover:text-blue-600 transition whitespace-nowrap">Contact</a>
-        
-        <!-- Dashboard Dropdown -->
-        <div class="relative group">
-            <button class="flex items-center hover:text-blue-600 transition whitespace-nowrap">Dashboard▾</button>
-            <div class="hidden group-hover:block absolute top-full right-0 bg-white dark:bg-slate-800 shadow-xl p-4 mt-2 w-40 rounded border dark:border-slate-700 z-50">
-                <a href="user.html" class="block py-1 hover:text-blue-500">User Profile</a>
+        <!-- Desktop Menu: Improved scaling for 1024px -->
+        <div class="hidden lg:flex items-center gap-4 xl:gap-6 font-medium text-[13px] xl:text-sm">
+            <a href="index.html" class="nav-link hover:text-blue-600 transition">Home</a>
+            <a href="home2.html" class="nav-link hover:text-blue-600 transition">Home2</a>
+            <a href="aboutus.html" class="nav-link hover:text-blue-600 transition">About</a>
+            <a href="services.html" class="nav-link hover:text-blue-600 transition">Services</a>
+            <a href="gallery.html" class="nav-link hover:text-blue-600 transition">Gallery</a>
+            <a href="pricing.html" class="nav-link hover:text-blue-600 transition">Pricing</a>
+            <a href="contact.html" class="nav-link hover:text-blue-600 transition">Contact</a>
+            
+            <!-- Dashboard Dropdown -->
+            <div class="relative group">
+                <button class="hover:text-blue-600 transition">Dashboard ▾</button>
+                <div class="absolute right-0 top-full pt-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+                    <div class="bg-white dark:bg-slate-800 shadow-xl p-3 w-40 rounded-lg border dark:border-slate-700">
+                        <a href="user.html" class="block py-1 hover:text-blue-500">Profile</a>
+                    </div>
+                </div>
             </div>
+
+            <div class="flex items-center gap-2 pl-2 border-l dark:border-slate-700">
+                <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg">🌓</button>
+                <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-[10px] font-bold">LTR</button>
+            </div>
+
+            <a href="login.html" class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition">Login</a>
+            <a href="load.html" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">Get Load</a>
         </div>
 
-        <!-- Toggles -->
-        <div class="flex items-center space-x-1 pl-2">
-            <button onclick="toggleTheme()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all">🌓</button>
-            <button onclick="toggleDir()" class="p-2 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-all text-[10px] font-bold">LTR</button>
-        </div>
+        <!-- Mobile Toggle -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-2xl">☰</button>
+    </div>
 
-        <!-- Auth Buttons: Padding adjusted for 1024px fit -->
-        <a href="login.html" class="border border-blue-600 px-3 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition whitespace-nowrap">Login</a>
-        <a href="load.html" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition whitespace-nowrap">Get Load</a>
+    <!-- Mobile Menu -->
+<div id="mobile-menu"
+     class="hidden lg:hidden absolute top-20 left-0 right-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-2xl z-40 px-4 py-6 box-border">
+    
+    <div class="space-y-1">
+        <a href="index.html" class="nav-link block py-3 font-medium">Home</a>
+        <a href="home2.html" class="nav-link block py-3 font-medium">Home2</a>
+        <a href="aboutus.html" class="nav-link block py-3 font-medium">About us</a>
+        <a href="services.html" class="nav-link block py-3 font-medium">Services</a>
+        <a href="gallery.html" class="nav-link block py-3 font-medium">Gallery</a>
+        <a href="pricing.html" class="nav-link block py-3 font-medium">Pricing</a>
+        <a href="contact.html" class="nav-link block py-3 font-medium">Contact</a>
+    </div>
+
+    <div class="flex gap-3 pt-4">
+        <button onclick="toggleTheme()" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-semibold">Theme</button>
+        <button onclick="toggleDir()" class="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm font-semibold">Direction</button>
+    </div>
+
+   <div class="flex flex-col gap-3 pt-6 border-t border-slate-200 dark:border-slate-800 w-full">
+        <a href="login.html" class="block w-full text-center py-3.5 border border-slate-200 dark:border-slate-700 rounded-xl font-semibold text-sm box-border">
+            Login
+        </a>
+        <a href="load.html" class="block w-full text-center py-3.5 bg-blue-600 text-white rounded-xl font-semibold text-sm box-border">
+            Post Load
+        </a>
     </div>
 </div>
-   
-<div id="mobile-menu" 
-     class="hidden lg:hidden absolute top-20 left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-2xl z-40 transition-all duration-300 ease-in-out px-6 py-6">
-           <a href="index.html" class="block">Home</a>
-            <a href="home2.html" class="block">Home2</a>
-            <a href="aboutus.html" class="block">Aboutus</a>
-            <a href="services.html" class="block">Services</a>
-            <a href="pricing.html" class="block">Pricing</a>
-            <a href="gallery.html" class="block">Gallery</a>
-            <a href="contact.html" class="block">contact</a>
-            <a href="user.html" class="block">Dashboard</a>
-           <div class="flex items-center gap-3 pt-2">
-    <button 
-        onclick="toggleTheme()" 
-        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
-        🌓
-    </button>
+<script>
+    // Automatically set active state based on current URL
+    document.addEventListener("DOMContentLoaded", () => {
+        const currentPath = window.location.pathname.split("/").pop();
+        const links = document.querySelectorAll('.nav-link');
+        
+        links.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('nav-active');
+            }
+        });
+    });
 
-    <button 
-        onclick="toggleDir()" 
-        class="flex-1 py-2 px-3 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 active:scale-95 text-sm font-medium">
-        LTR
-    </button>
-</div>
-            <hr class="dark:border-slate-700">
-      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
-  <div class="flex flex-col sm:flex-row gap-3">
+    // Ensure menu toggling works for all mobile/tablet sizes
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    }
+</script>
+    <style>
+        /* Active link styling */
+.nav-active {
+    color: #2563eb !important; /* blue-600 */
+    font-weight: 700;
+    border-left: 4px solid #2563eb;
+    padding-left: 1rem !important;
+}
+    </style>
+</nav>
+<style>
+    .nav-active {
+    color: #2563eb; /* blue-600 */
+    font-weight: 700;
+    border-bottom: 2px solid #2563eb;
+}
+</style>
+<script>
+    const currentPath = window.location.pathname.split("/").pop();
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if(link.getAttribute('href') === currentPath) {
+            link.classList.add('nav-active');
+        }
+    });
 
-    <a href="login.html"
-      class="w-full flex items-center justify-center px-5 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 font-semibold rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">
-      Login
-    </a>
-
-    <a href="load.html"
-      class="w-full flex items-center justify-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg">
-      Post Load
-    </a>
-
-  </div>
-</div>
-        </div>
-
-    </nav>
+    function toggleMobileMenu() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+</script>
 <!-- Pricing Hero Section -->
 <section class="relative w-full py-24 px-4 bg-white dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
     <!-- Decorative background elements -->
@@ -560,34 +574,7 @@
 
 </footer>
 
-<script>
-    function setActiveNavLink() {
-        const currentPath = window.location.pathname.split("/").pop() || "index.html";
-        
-        // Select only the navigation menu links
-        // We add ':not(.logo-link)' to ensure the logo is ignored
-        const navLinks = document.querySelectorAll('nav a:not(.logo-link)');
 
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            
-            // Exact match for the current page
-            if (href === currentPath) {
-                link.classList.add('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
-            } else {
-                // Optional: Ensure class is removed if it doesn't match
-                link.classList.remove('text-blue-600', 'font-bold', 'border-b-2', 'border-blue-600');
-            }
-        });
-    }
-
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('hidden');
-    }
-
-    window.onload = setActiveNavLink;
-</script>
        <script>
         function toggleTheme() {
             const html = document.documentElement;
@@ -617,26 +604,7 @@
             }
         }
     </script>
-<script>
-    // Automatically set active state for Nav Links
-    function setActiveNavLink() {
-        const currentPath = window.location.pathname.split("/").pop(); // Gets the filename
-        const navLinks = document.querySelectorAll('nav a');
 
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            // Check if href matches current path (default to index.html if on root)
-            if (href === currentPath || (currentPath === "" && href === "index.html")) {
-                link.classList.add('nav-active');
-            }
-        });
-    }
-
-    // Run on page load
-    window.onload = setActiveNavLink;
-
-   
-</script>
   
 </body>
 </html>
