@@ -614,64 +614,65 @@
         </div>
     </div>
 </section>
-<section class="w-full bg-slate-50 dark:bg-slate-950 py-20 px-4">
-    <div class="max-w-7xl mx-auto text-center">
+<section class="w-full bg-slate-50 dark:bg-slate-950 py-24 px-4 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto">
         <!-- Header -->
-        <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-16">Trusted Partners</h2>
+        <div class="text-center mb-16">
+            <span class="text-blue-600 dark:text-blue-400 font-bold tracking-[0.2em] uppercase text-xs">Trusted By Industry Leaders</span>
+            <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mt-4">Trusted Partners</h2>
+        </div>
 
-        <!-- Logo Grid: 8 Partners -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 items-center justify-items-center">
+        <!-- Logo Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             
-            <!-- Generate 8 Uniform Partner Cards -->
-            <!-- Use a helper loop logic concept: -->
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Logistics Corp</span>
-                </div>
+            <!-- Partner 1: Logistics Corp -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18-.21 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 013 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9zM12 4.15L5.55 7.82 12 11.49l6.45-3.67L12 4.15zM5 8.94l6 3.41v7.17l-6-3.38V8.94zm7 10.58v-7.17l6-3.41v7.17l-6 3.41z"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Logistics Corp</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Freight Hub</span>
-                </div>
+            <!-- Partner 2: Freight Hub -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Freight Hub</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Warehousing Inc</span>
-                </div>
+            <!-- Partner 3: Warehousing Inc -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M20 7H4v10h16V7zm-2 8H6V9h12v6zM2 4h20v2H2V4zm0 14h20v2H2v-2z"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Warehousing Inc</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Fast Trans</span>
-                </div>
+            <!-- Partner 4: Fast Trans -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 2L10 20h2l3.5-18h-2zM3 13l4 4 11-11"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Fast Trans</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Global Ship</span>
-                </div>
+            <!-- Partner 5: Global Ship -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Global Ship</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Cargo Net</span>
-                </div>
+            <!-- Partner 6: Cargo Net -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zm0-8h18v2H3v-2z"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Cargo Net</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Port Logic</span>
-                </div>
+            <!-- Partner 7: Port Logic -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Port Logic</span>
             </div>
 
-            <div class="group relative w-full h-28 flex items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-                <div class="w-full h-full bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center border border-slate-200 dark:border-slate-700 shadow-sm transition-all duration-500 group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-500/20">
-                    <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 transition-colors duration-500 group-hover:text-blue-600">Prime Route</span>
-                </div>
+            <!-- Partner 8: Prime Route -->
+            <div class="group relative h-28 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-2 p-4 transition-all duration-500 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer">
+                <svg class="w-10 h-10 text-slate-400 transition-colors duration-500 group-hover:text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.86L12 5.84zM7 13l-4 8h18l-4-8H7zm2.74 6l1.26-2.52L12 19H9.74z"/></svg>
+                <span class="text-xs font-bold text-slate-400 group-hover:text-blue-600 transition-colors">Prime Route</span>
             </div>
-
+            
         </div>
     </div>
 </section>
